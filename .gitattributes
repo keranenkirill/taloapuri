@@ -1,0 +1,16 @@
+# Normalize line endings so Windows, macOS and Linux contributors get clean diffs.
+* text=auto
+
+# Always LF (they run on Linux/in containers or are shell/SQL scripts).
+*.sh text eol=lf
+*.sql text eol=lf
+Dockerfile text eol=lf
+
+# Binary files: never convert or diff as text.
+*.pdf binary
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.webp binary
+*.heic binary
+*.ico binary

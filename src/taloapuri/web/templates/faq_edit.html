@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+{% block title %}{% if errors %}Virhe: {% endif %}Muokkaa taloyhtiön kysymyksiä{% endblock %}
+{% block content %}
+<p><a href="/yhtiot/{{ ctx.company_id }}/ukk">← Takaisin kysymyksiin</a></p>
+<h1>Taloyhtiön omat kysymykset</h1>
+<p>Lisää kysymyksiä, jotka koskevat vain tätä taloyhtiötä, esimerkiksi saunavuorot, pyykkitupa tai
+  jätehuolto. Kaikki yhtiön jäsenet näkevät ne. Teksti näytetään pelkkänä tekstinä.</p>
+{% if notice %}<p class="notice notice-success" role="status">{{ notice }}</p>{% endif %}
+
+{% if errors and not edit_errors_for %}{% include "_error_summary.html" %}{% endif %}
+
+<section aria-labelledby="uusi">
+  <h2 id="uusi">Lisää kysymys</h2>
+  <form method="post" action="/yhtiot/{{ ctx.company_id }}/ukk" novalidate>
+    <div class="field{% if errors.question and not edit_errors_for %} field-error{% endif %}">
+      <label for="question">Kysymys</label>
+      {% if errors.question and not edit_errors_for %}<p class="error-message" id="question-virhe">{{ errors.question }}</p>{% endif %}
+      <input id="question" name="question" type="text" maxlength="200" required
+        value="{{ values.question if not edit_errors_for else '' }}"
+        {% if errors.question and not edit_errors_for %}aria-invalid="true" aria-describedby="question-virhe"{% endif %}>
+    </div>
+    <div class="field{% if errors.answer and not edit_errors_for %} field-error{% endif %}">
+      <label for="answer">Vastaus</label>
+      {% if errors.answer and not edit_errors_for %}<p class="error-message" id="answer-virhe">{{ errors.answer }}</p>{% endif %}
+      <textarea id="answer" name="answer" rows="5" maxlength="2000" required
+        {% if errors.answer and not edit_errors_for %}aria-invalid="true" aria-describedby="answer-virhe"{% endif %}>{{ values.answer if not edit_errors_for else '' }}</textarea>
+    </div>
+    <div class="field{% if errors.sort_order and not edit_errors_for %} field-error{% endif %}">
+      <label for="sort_order">Järjestys (vapaaehtoinen)</label>
+      <p class="hint" id="sort-ohje">Pienin numero näytetään ensin. Jos jätät tyhjäksi, kysymys lisätään loppuun.</p>
+      {% if errors.sort_order and not edit_errors_for %}<p class="error-message" id="sort_order-virhe">{{ errors.sort_order }}</p>{% endif %}
+      <input id="sort_order" name="sort_order" type="text" inputmode="numeric" maxlength="4"
+        value="{{ values.sort_order if not edit_errors_for else '' }}" aria-describedby="sort-ohje">
+    </div>
+    <button type="submit">Lisää kysymys</button>
+  </form>
+</section>
+
+<section aria-labelledby="lisatyt">
+  <h2 id="lisatyt">Lisätyt kysymykset</h2>
+  {% for row in entries %}
+    <details class="faq-item"{% if edit_errors_for == row.id %} open{% endif %}>
+      <summary>{{ row.question }}</summary>
+      <div class="faq-answer">
+        {% if edit_errors_for == row.id and errors %}
+          <div class="error-summary" role="alert" tabindex="-1" autofocus>
+            <ul>{% for message in errors.values() %}<li>{{ message }}</li>{% endfor %}</ul>
+          </div>
+        {% endif %}
+        <form method="post" action="/yhtiot/{{ ctx.company_id }}/ukk/{{ row.id }}" novalidate>
+          {% set mine = edit_errors_for == row.id %}
+          <div class="field">
+            <label for="q-{{ row.id }}">Kysymys</label>
+            <input id="q-{{ row.id }}" name="question" type="text" maxlength="200" required value="{{ values.question if mine else row.question }}">
+          </div>
+          <div class="field">
+            <label for="a-{{ row.id }}">Vastaus</label>
+            <textarea id="a-{{ row.id }}" name="answer" rows="5" maxlength="2000" required>{{ values.answer if mine else row.answer }}</textarea>
+          </div>
+          <div class="field">
+            <label for="o-{{ row.id }}">Järjestys</label>
+            <input id="o-{{ row.id }}" name="sort_order" type="text" inputmode="numeric" maxlength="4" value="{{ values.sort_order if mine else row.sort_order }}">
+          </div>
+          <button type="submit">Tallenna muutokset</button>
+          <a class="button-secondary" href="/yhtiot/{{ ctx.company_id }}/ukk/{{ row.id }}/poista">Poista…<span class="visually-hidden">: {{ row.question }}</span></a>
+        </form>
+      </div>
+    </details>
+  {% else %}
+    <p class="muted">Ei vielä omia kysymyksiä.</p>
+  {% endfor %}
+</section>
+{% endblock %}

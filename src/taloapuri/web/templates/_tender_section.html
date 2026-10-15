@@ -1,0 +1,87 @@
+{# Tarjouspyynnön osat: luonnos, tarjoukset ja vertailu. Vain hallitus ja isännöitsijä. #}
+<section aria-labelledby="luonnos-otsikko" id="luonnos">
+  <h2 id="luonnos-otsikko">Tarjouspyynnön teksti</h2>
+  <form method="post" action="/yhtiot/{{ ctx.company_id }}/asiat/{{ case.id }}/luonnos/tekoaly"
+    data-ai-stream="/yhtiot/{{ ctx.company_id }}/asiat/{{ case.id }}/luonnos/tekoaly/stream"
+    data-ai-panel="ai-draft" data-ai-target="#draft_text">
+    <button type="submit" class="button-secondary">Luo luonnos tekoälyllä</button>
+    <span class="hint">Tekoäly käyttää vain yllä olevia tietoja. Budjettimuistiinpano ja nimet eivät mene tekoälylle.</span>
+  </form>
+  {% with panel_id = "ai-draft" %}{% include "_ai_progress.html" %}{% endwith %}
+  {% if draft_suggestion %}
+    <p class="notice"><span class="ai-label">Tekoälyn tuottama luonnos</span>
+      Tarkista ja täydennä [TÄYDENNÄ]-kohdat. Luonnos tallentuu vasta, kun painat Tallenna luonnos. Mitään ei lähetetä automaattisesti.</p>
+  {% endif %}
+  <form method="post" action="/yhtiot/{{ ctx.company_id }}/asiat/{{ case.id }}/luonnos">
+    <input type="hidden" name="expected_version" value="{{ case.version }}">
+    <label for="draft_text">Tarjouspyyntö</label>
+    <textarea id="draft_text" name="draft_text" rows="18" maxlength="20000">{{ draft_suggestion or details.draft_text or '' }}</textarea>
+    {% if details.draft_saved_by and not draft_suggestion %}<p class="muted">Tallentanut {{ details.draft_saved_by }}.</p>{% endif %}
+    <button type="submit">Tallenna luonnos</button>
+  </form>
+  {% if draft_suggestion and draft_output and draft_output.citations %}
+    <details>
+      <summary>Mihin luonnos perustuu?</summary>
+      {% with output = draft_output, prefix = "luonnoslahde" %}{% include "_ai_output.html" %}{% endwith %}
+    </details>
+  {% endif %}
+</section>
+
+<section aria-labelledby="tarjoukset-otsikko" id="tarjoukset">
+  <h2 id="tarjoukset-otsikko">Saadut tarjoukset</h2>
+  {% if offers %}
+    <table class="case-table">
+      <caption class="visually-hidden">Tarjoukset</caption>
+      <thead><tr><th scope="col">Urakoitsija</th><th scope="col">Hinta</th><th scope="col">Tiedosto</th><th scope="col">Toiminnot</th></tr></thead>
+      <tbody>
+        {% for o in offers %}
+          <tr>
+            <td>{{ o.contractor_name }}<br><span class="muted">Lisännyt {{ o.uploaded_by_name }}</span></td>
+            <td>{% if o.total_price is not none %}{{ "{:,.2f}".format(o.total_price).replace(",", " ").replace(".", ",") }} €{% else %}–{% endif %}</td>
+            <td><a href="/yhtiot/{{ ctx.company_id }}/asiat/{{ case.id }}/tarjoukset/{{ o.id }}/lataa">{{ o.filename }}</a>
+              {% if o.page_count == 0 %}<br><span class="error-message">Tekoäly ei voi lukea tätä (skannattu?)</span>{% endif %}</td>
+            <td><form method="post" action="/yhtiot/{{ ctx.company_id }}/asiat/{{ case.id }}/tarjoukset/{{ o.id }}/poista">
+              <button type="submit" class="button-secondary">Poista<span class="visually-hidden">: {{ o.contractor_name }}</span></button></form></td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  {% else %}
+    <p class="muted">Ei vielä tarjouksia.</p>
+  {% endif %}
+  <details>
+    <summary>Lisää tarjous</summary>
+    <form method="post" action="/yhtiot/{{ ctx.company_id }}/asiat/{{ case.id }}/tarjoukset" enctype="multipart/form-data" novalidate>
+      <div class="field">
+        <label for="contractor_name">Urakoitsija</label>
+        <input id="contractor_name" name="contractor_name" type="text" maxlength="200" required>
+      </div>
+      <div class="field">
+        <label for="total_price">Kokonaishinta (vapaaehtoinen, €)</label>
+        <input id="total_price" name="total_price" type="text" inputmode="decimal" maxlength="20">
+      </div>
+      <div class="field">
+        <label for="offer_file">Tarjous PDF-tiedostona (enintään 10 Mt)</label>
+        <input id="offer_file" name="file" type="file" accept="application/pdf,.pdf" required>
+      </div>
+      <button type="submit">Tallenna tarjous</button>
+    </form>
+  </details>
+</section>
+
+<section aria-labelledby="vertailu-otsikko" id="vertailu">
+  <h2 id="vertailu-otsikko">Tarjousten vertailu</h2>
+  <p>Tekoäly kokoaa tarjousten erot lähdeviitteineen. Se ei valitse urakoitsijaa – päätöksen tekee hallitus.</p>
+  {% if offers | length >= 2 %}
+    <form method="post" action="/yhtiot/{{ ctx.company_id }}/asiat/{{ case.id }}/vertailu"
+      data-ai-stream="/yhtiot/{{ ctx.company_id }}/asiat/{{ case.id }}/vertailu/stream" data-ai-panel="ai-compare">
+      <button type="submit" class="button-secondary">Vertaa tarjouksia tekoälyllä</button>
+    </form>
+    {% with panel_id = "ai-compare" %}{% include "_ai_progress.html" %}{% endwith %}
+  {% else %}
+    <p class="muted">Vertailuun tarvitaan vähintään kaksi tarjousta.</p>
+  {% endif %}
+  {% if comparison %}
+    {% with output = comparison, prefix = "vertailulahde" %}{% include "_ai_output.html" %}{% endwith %}
+  {% endif %}
+</section>

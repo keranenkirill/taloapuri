@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block title %}Usein kysytyt kysymykset{% endblock %}
+{% block content %}
+<p><a href="{% if ctx is defined %}/yhtiot/{{ ctx.company_id }}{% else %}/{% endif %}">← Etusivu</a></p>
+<h1>Usein kysytyt kysymykset</h1>
+
+<p class="notice notice-draft"><strong>Luonnos:</strong> vastaukset odottavat asiantuntijan
+  tarkistusta. Lakiin perustuvien vastausten alla näkyy lain sanamuoto suoraan lähteestä.</p>
+
+{% if not logged_in %}
+  <p>Kirjaudu sisään nähdäksesi lakiin perustuvien vastausten sanatarkat lähteet.</p>
+{% endif %}
+
+{% for name, entries in groups %}
+  <section aria-labelledby="ryhma-{{ loop.index }}">
+    <h2 id="ryhma-{{ loop.index }}">{{ name }}</h2>
+    {% for view in entries %}
+      {% include "_faq_entry.html" %}
+    {% endfor %}
+  </section>
+{% endfor %}
+
+{% if ctx is defined %}
+  <section aria-labelledby="oma-ukk">
+    <h2 id="oma-ukk">Taloyhtiön omat kysymykset</h2>
+    {% for row in company_faq %}
+      <details class="faq-item">
+        <summary>{{ row.question }}</summary>
+        <div class="faq-answer"><p class="prewrap">{{ row.answer }}</p></div>
+      </details>
+    {% else %}
+      <p class="muted">Isännöitsijä ei ole vielä lisännyt taloyhtiön omia kysymyksiä.</p>
+    {% endfor %}
+    {% if ctx.is_manager %}
+      <p><a class="button-secondary" href="/yhtiot/{{ ctx.company_id }}/ukk/muokkaa">Muokkaa taloyhtiön kysymyksiä</a></p>
+    {% endif %}
+  </section>
+{% endif %}
+
+<p class="hint">Lain teksti: Finlex, ajantasainen lainsäädäntö (oikeusministeriö). Ajantasainen
+  teksti ei ole virallinen julkaisu. Vastaukset eivät ole oikeudellista neuvontaa.</p>
+{% endblock %}

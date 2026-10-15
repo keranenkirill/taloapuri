@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block title %}Esikatselu – lisää laki{% endblock %}
+{% block content %}
+<p><a href="/yllapito/lait">← Takaisin lakilähteisiin</a></p>
+<h1>Lisätäänkö tämä laki?</h1>
+<dl class="summary">
+  <dt>Nimi</dt><dd>{{ preview.title }}</dd>
+  <dt>Säädös</dt><dd>{{ preview.number }}/{{ preview.year }}</dd>
+  <dt>Finlexin versio</dt><dd>{{ preview.version_label or "–" }}{% if preview.consolidated_date %}, ajantasaistettu {{ preview.consolidated_date | fi_date }}{% endif %}</dd>
+  <dt>Sisältö</dt><dd>{{ preview.section_count }} pykälää, {{ preview.row_count }} momenttia</dd>
+  <dt>Lyhenne lähdeviitteissä</dt><dd>{{ short_title or (preview.number ~ "/" ~ preview.year) }}</dd>
+  <dt>Ensimmäinen kohta</dt><dd><strong>{{ preview.sample_heading }}</strong><br>{{ preview.sample_text }}</dd>
+</dl>
+<p>Laki tulee käyttöön kaikissa taloyhtiöissä, ja tekoäly voi viitata siihen. Voit poistaa sen käytöstä myöhemmin.</p>
+<form method="post" action="/yllapito/lait/lisaa">
+  <input type="hidden" name="year" value="{{ preview.year }}">
+  <input type="hidden" name="number" value="{{ preview.number }}">
+  <input type="hidden" name="short_title" value="{{ short_title }}">
+  <input type="hidden" name="sha256" value="{{ preview.sha256 }}">
+  <button type="submit">Vahvista lisäys</button>
+  <a class="button-secondary" href="/yllapito/lait">Peruuta</a>
+</form>
+{% endblock %}

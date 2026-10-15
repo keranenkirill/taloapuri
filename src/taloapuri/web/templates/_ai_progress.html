@@ -1,0 +1,11 @@
+{# Tekoälyn etenemispaneeli (ks. static/ai-stream.js). Odottaa muuttujaa `panel_id`. #}
+<div class="ai-progress" id="{{ panel_id }}" hidden>
+  <div class="ai-progress-head">
+    <span class="ai-dots" aria-hidden="true"><span></span><span></span><span></span></span>
+    <span class="ai-status" role="status" aria-live="polite">Aloitetaan…</span>
+    <span class="ai-elapsed muted" aria-hidden="true"></span>
+  </div>
+  <p class="ai-label">Tekoälyn tuottama – lähdeviitteet tarkistetaan, kun vastaus on valmis</p>
+  <p class="ai-stream prewrap" aria-live="off"></p>
+  <p class="ai-error notice notice-error" role="alert" hidden></p>
+</div>

@@ -1,0 +1,87 @@
+{% extends "base.html" %}
+{% block title %}{% if errors %}Virhe: {% endif %}Vahinkoilmoitus{% endblock %}
+{% block content %}
+<p><a href="/yhtiot/{{ ctx.company_id }}">← Takaisin</a></p>
+<h1>Ilmoita vahingosta</h1>
+
+<aside class="notice notice-urgent" aria-labelledby="kiire">
+  <h2 id="kiire">Vuotaako vesi juuri nyt?</h2>
+  <p>Sulje vesi ja soita huoltoyhtiön päivystykseen ennen ilmoituksen tekemistä.
+    <a href="/ensiohjeet/vesivahinko">Katso ensiohjeet</a>. Hätätilanteessa soita 112.</p>
+</aside>
+
+{% include "_error_summary.html" %}
+
+<form method="post" action="/yhtiot/{{ ctx.company_id }}/asiat" enctype="multipart/form-data" novalidate>
+  <input type="hidden" name="case_type" value="damage">
+
+  <div class="field{% if errors.title %} field-error{% endif %}">
+    <label for="title">Mitä on tapahtunut? (lyhyt otsikko)</label>
+    <p class="hint" id="title-ohje">Esimerkiksi ”Astianpesukone vuotaa keittiössä”.</p>
+    {% if errors.title %}<p class="error-message" id="title-virhe">{{ errors.title }}</p>{% endif %}
+    <input id="title" name="title" type="text" maxlength="200" required value="{{ values.title or '' }}"
+      aria-describedby="title-ohje{% if errors.title %} title-virhe{% endif %}" {% if errors.title %}aria-invalid="true"{% endif %}>
+  </div>
+
+  {% if apartments %}
+  <div class="field{% if errors.apartment_id %} field-error{% endif %}">
+    <label for="apartment_id">Missä huoneistossa?</label>
+    {% if errors.apartment_id %}<p class="error-message" id="apartment_id-virhe">{{ errors.apartment_id }}</p>{% endif %}
+    <select id="apartment_id" name="apartment_id" {% if errors.apartment_id %}aria-invalid="true" aria-describedby="apartment_id-virhe"{% endif %}>
+      <option value="">Yhteiset tilat tai ei huoneistoa</option>
+      {% for a in apartments %}
+        <option value="{{ a.id }}" {% if values.apartment_id == a.id|string %}selected{% endif %}>{{ a.label }}</option>
+      {% endfor %}
+    </select>
+  </div>
+  {% endif %}
+
+  <div class="field{% if errors.location_text %} field-error{% endif %}">
+    <label for="location_text">Tarkempi paikka (vapaaehtoinen)</label>
+    <p class="hint" id="location_text-ohje">Esimerkiksi ”keittiö, tiskipöydän alla” tai ”porras B, 2. kerros”.</p>
+    {% if errors.location_text %}<p class="error-message">{{ errors.location_text }}</p>{% endif %}
+    <input id="location_text" name="location_text" type="text" maxlength="200" value="{{ values.location_text or '' }}"
+      aria-describedby="location_text-ohje">
+  </div>
+
+  <fieldset class="field{% if errors.event_date %} field-error{% endif %}">
+    <legend>Milloin vahinko tapahtui tai huomattiin?</legend>
+    <p class="hint" id="event_date-ohje">Päivämäärä vaikuttaa siihen, mitä sääntöjä sovelletaan.</p>
+    {% if errors.event_date %}<p class="error-message" id="event_date-virhe">{{ errors.event_date }}</p>{% endif %}
+    <label for="event_date">Päivämäärä</label>
+    <input id="event_date" name="event_date" type="date" value="{{ values.event_date or '' }}"
+      aria-describedby="event_date-ohje{% if errors.event_date %} event_date-virhe{% endif %}" {% if errors.event_date %}aria-invalid="true"{% endif %}>
+    <div class="checkbox">
+      <input id="event_date_unknown" name="event_date_unknown" type="checkbox" value="1" {% if values.event_date_unknown %}checked{% endif %}>
+      <label for="event_date_unknown">En tiedä</label>
+    </div>
+  </fieldset>
+
+  <fieldset class="field" id="ongoing">
+    <legend>Jatkuuko vahinko yhä (esimerkiksi vuotaako vesi)?</legend>
+    {% for value, label in [("yes", "Kyllä"), ("no", "Ei"), ("unknown", "En tiedä")] %}
+      <div class="radio">
+        <input type="radio" id="ongoing-{{ value }}" name="ongoing" value="{{ value }}" {% if values.ongoing == value %}checked{% endif %}>
+        <label for="ongoing-{{ value }}">{{ label }}</label>
+      </div>
+    {% endfor %}
+  </fieldset>
+
+  <div class="field">
+    <label for="description">Kerro omin sanoin (vapaaehtoinen)</label>
+    <p class="hint" id="description-ohje">Mitä näit, mitä teit jo? Älä kirjoita terveystietoja.</p>
+    <textarea id="description" name="description" rows="5" maxlength="10000" aria-describedby="description-ohje">{{ values.description or '' }}</textarea>
+  </div>
+
+  <div class="field{% if errors.photos %} field-error{% endif %}">
+    <label for="photos">Kuvat vahingosta (vapaaehtoinen, enintään 10)</label>
+    <p class="hint" id="photos-ohje">JPEG, PNG, WebP tai iPhonen HEIC, enintään 10 Mt/kuva. Kuvista poistetaan sijaintitiedot.</p>
+    {% if errors.photos %}<p class="error-message" id="photos-virhe">{{ errors.photos }}</p>{% endif %}
+    <input id="photos" name="photos" type="file" accept="image/*" multiple
+      aria-describedby="photos-ohje{% if errors.photos %} photos-virhe{% endif %}" {% if errors.photos %}aria-invalid="true"{% endif %}>
+  </div>
+
+  <button type="submit">Tallenna ilmoitus</button>
+  <a class="button-secondary" href="/yhtiot/{{ ctx.company_id }}">Peruuta</a>
+</form>
+{% endblock %}

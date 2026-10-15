@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block title %}Poista laki käytöstä{% endblock %}
+{% block content %}
+<h1>Poistetaanko ”{{ law.short_title }}” käytöstä?</h1>
+<ul>
+  <li>Tekoäly ei enää hae tästä laista lähteitä missään taloyhtiössä.</li>
+  <li>Lain tiedot ja aiemmat tekoälyvastaukset lähdeviitteineen säilyvät.</li>
+  <li>Voit ottaa lain myöhemmin takaisin käyttöön.</li>
+</ul>
+<form method="post" action="/yllapito/lait/{{ law.act_year }}/{{ law.act_number }}/kaytossa">
+  <input type="hidden" name="active" value="0">
+  <button type="submit">Kyllä, poista käytöstä</button>
+  <a class="button-secondary" href="/yllapito/lait">Peruuta</a>
+</form>
+{% endblock %}

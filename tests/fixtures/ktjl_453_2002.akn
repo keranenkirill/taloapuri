@@ -1,0 +1,587 @@
+<akomaNtoso xmlns="http://docs.oasis-open.org/legaldocml/ns/akn/3.0" xmlns:finlex="http://data.finlex.fi/schema/finlex" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <act contains="multipleVersions" name="main">
+        <meta>
+            <identification source="#organization_fi.finlex">
+                <FRBRWork>
+                    <FRBRthis value="/akn/fi/act/statute-consolidated/2002/453/!main"/>
+                    <FRBRuri value="/akn/fi/act/statute-consolidated/2002/453"/>
+                    <FRBRalias name="eli" value="http://data.finlex.fi/eli/sd/2002/453/ajantasa"/>
+                    <FRBRdate date="2002-05-31" name="dateIssued"/>
+                    <FRBRdate date="2002-06-07" name="datePublished"/>
+                    <FRBRauthor as="#role_author" href="#organization_fi.finlex"/>
+                    <FRBRcountry value="fi"/>
+                    <FRBRsubtype value="statute-consolidated"/>
+                    <FRBRnumber value="453"/>
+                    <FRBRprescriptive value="false"/>
+                    <FRBRauthoritative value="false"/>
+                </FRBRWork>
+                <FRBRExpression>
+                    <FRBRthis value="/akn/fi/act/statute-consolidated/2002/453/fin@20250654/!main"/>
+                    <FRBRuri value="/akn/fi/act/statute-consolidated/2002/453/fin@20250654"/>
+                    <FRBRalias name="eli" value="http://data.finlex.fi/eli/sd/2002/453/ajantasa/2025-06-27/fin"/>
+                    <FRBRdate date="2002-05-31" name="dateIssued"/>
+                    <FRBRdate date="2025-06-27" name="dateConsolidated"/>
+                    <FRBRauthor as="#role_author" href="#organization_fi.finlex"/>
+                    <FRBRversionNumber value="20250654"/>
+                    <FRBRlanguage language="fin"/>
+                </FRBRExpression>
+                <FRBRManifestation>
+                    <FRBRthis value="/akn/fi/act/statute-consolidated/2002/453/fin@20250654/!main.xml"/>
+                    <FRBRuri value="/akn/fi/act/statute-consolidated/2002/453/fin@20250654.akn"/>
+                    <FRBRalias name="eli" value="http://data.finlex.fi/eli/sd/2002/453/ajantasa/2025-06-27/fin/xml"/>
+                    <FRBRdate date="2026-08-17" name="dateProduced"/>
+                    <FRBRdate date="2002-06-07" name="datePublished"/>
+                    <FRBRauthor as="#role_editor" href="#organization_fi.finlex"/>
+                    <FRBRformat value="xml"/>
+                </FRBRManifestation>
+            </identification>
+            <classification source="#organization_fi.finlex">
+                <keyword dictionary="/akn/ontology/concept/statute-keyword" showAs="Kiinteistötietojärjestelmä" value="/akn/ontology/concept/statute-keyword.5258"/>
+            </classification>
+            <references source="#organization_fi.finlex">
+                <TLCOrganization eId="organization_fi.finlex" href="/akn/ontology/organization/fi.finlex" showAs="Finlex"/>
+                <TLCRole eId="role_author" href="/akn/ontology/role/author" showAs="Tekijä"/>
+                <TLCRole eId="role_editor" href="/akn/ontology/role/editor" showAs="Toimittaja"/>
+                <TLCOrganization eId="fi.ministry-of-agriculture-and-forestry" href="/akn/ontology/organization/fi.ministry-of-agriculture-and-forestry" showAs="Maa- ja metsätalousministeriö"/>
+                <TLCConcept eId="act" href="/akn/ontology/concept/statute/type-statute.act" showAs="Laki"/>
+            </references>
+            <proprietary source="#organization_fi.finlex">
+                <finlex:documentYear>2002</finlex:documentYear>
+                <finlex:administrativeBranch refersTo="#fi.ministry-of-agriculture-and-forestry"/>
+                <finlex:typeStatute refersTo="#act"/>
+                <finlex:isInForce value="true"/>
+                <finlex:inForce>
+                    <finlex:dateEntryIntoForce date="2003-01-01"/>
+                </finlex:inForce>
+                <finlex:amendedBy>
+                    <finlex:statuteReference>
+                        <finlex:ref href="/akn/fi/act/statute/2012/908">908/2012</finlex:ref>
+                        <finlex:inForce>
+                            <finlex:dateEntryIntoForce date="2013-01-01">1.1.2013</finlex:dateEntryIntoForce>
+                        </finlex:inForce>
+                        <finlex:noteEditorial>muutt. 7 §:ää</finlex:noteEditorial>
+                    </finlex:statuteReference>
+                    <finlex:statuteReference>
+                        <finlex:ref href="/akn/fi/act/statute/2025/654">654/2025</finlex:ref>
+                        <finlex:inForce>
+                            <finlex:dateEntryIntoForce date="2026-01-01">1.1.2026</finlex:dateEntryIntoForce>
+                        </finlex:inForce>
+                        <finlex:noteEditorial>muutt. 6 §:ää</finlex:noteEditorial>
+                    </finlex:statuteReference>
+                    <finlex:statuteReference>
+                        <finlex:ref href="/akn/fi/act/statute/2019/103">103/2019</finlex:ref>
+                        <finlex:inForce>
+                            <finlex:dateEntryIntoForce date="2019-01-23">23.1.2019</finlex:dateEntryIntoForce>
+                        </finlex:inForce>
+                        <finlex:noteEditorial>muutt. 6 ja 8 §:ää</finlex:noteEditorial>
+                    </finlex:statuteReference>
+                    <finlex:statuteReference>
+                        <finlex:ref href="/akn/fi/act/statute/2019/473">473/2019</finlex:ref>
+                        <finlex:inForce>
+                            <finlex:dateEntryIntoForce date="2020-01-01">1.1.2020</finlex:dateEntryIntoForce>
+                        </finlex:inForce>
+                        <finlex:noteEditorial>muutt. 6 §:ää</finlex:noteEditorial>
+                    </finlex:statuteReference>
+                    <finlex:statuteReference>
+                        <finlex:ref href="/akn/fi/act/statute/2016/376">376/2016</finlex:ref>
+                        <finlex:inForce>
+                            <finlex:dateEntryIntoForce date="2017-01-01">1.1.2017</finlex:dateEntryIntoForce>
+                        </finlex:inForce>
+                        <finlex:noteEditorial>muutt. 6 ja 7 §:ää</finlex:noteEditorial>
+                    </finlex:statuteReference>
+                    <finlex:statuteReference>
+                        <finlex:ref href="/akn/fi/act/statute/2013/902">902/2013</finlex:ref>
+                        <finlex:inForce>
+                            <finlex:dateEntryIntoForce date="2014-01-01">1.1.2014</finlex:dateEntryIntoForce>
+                        </finlex:inForce>
+                        <finlex:noteEditorial>muutt. 5, 6 ja 8 §:ää</finlex:noteEditorial>
+                    </finlex:statuteReference>
+                    <finlex:statuteReference>
+                        <finlex:ref href="/akn/fi/act/statute/2009/576">576/2009</finlex:ref>
+                        <finlex:inForce>
+                            <finlex:dateEntryIntoForce date="2010-01-01">1.1.2010</finlex:dateEntryIntoForce>
+                        </finlex:inForce>
+                        <finlex:noteEditorial>muutt. 6 §:ää</finlex:noteEditorial>
+                    </finlex:statuteReference>
+                    <finlex:statuteReference>
+                        <finlex:ref href="/akn/fi/act/statute/2011/1189">1189/2011</finlex:ref>
+                        <finlex:inForce>
+                            <finlex:dateEntryIntoForce date="2012-01-01">1.1.2012</finlex:dateEntryIntoForce>
+                        </finlex:inForce>
+                        <finlex:noteEditorial>muutt. 6 §:ää, 7 § ja 12 §</finlex:noteEditorial>
+                    </finlex:statuteReference>
+                    <finlex:statuteReference>
+                        <finlex:ref href="/akn/fi/act/statute/2019/1187">1187/2019</finlex:ref>
+                        <finlex:inForce>
+                            <finlex:dateEntryIntoForce date="2020-01-01">1.1.2020</finlex:dateEntryIntoForce>
+                        </finlex:inForce>
+                        <finlex:noteEditorial>muutt. 6 §:ää</finlex:noteEditorial>
+                    </finlex:statuteReference>
+                </finlex:amendedBy>
+                <finlex:issuedUnderThisAct>
+                    <finlex:statuteReference>
+                        <finlex:ref href="/akn/fi/act/statute-consolidated/2004/278">278/2004</finlex:ref>
+                    </finlex:statuteReference>
+                    <finlex:statuteReference>
+                        <finlex:ref href="/akn/fi/act/statute-consolidated/2009/1064">1064/2009</finlex:ref>
+                    </finlex:statuteReference>
+                    <finlex:statuteReference>
+                        <finlex:ref href="/akn/fi/act/statute-consolidated/2016/1117">1117/2016</finlex:ref>
+                    </finlex:statuteReference>
+                    <finlex:statuteReference>
+                        <finlex:ref href="/akn/fi/act/statute-consolidated/2016/1118">1118/2016</finlex:ref>
+                    </finlex:statuteReference>
+                    <finlex:statuteReference>
+                        <finlex:ref href="/akn/fi/act/statute-consolidated/2018/1282">1282/2018</finlex:ref>
+                    </finlex:statuteReference>
+                    <finlex:statuteReference>
+                        <finlex:ref href="/akn/fi/act/statute-consolidated/2005/278">278/2005</finlex:ref>
+                    </finlex:statuteReference>
+                    <finlex:statuteReference>
+                        <finlex:ref href="/akn/fi/act/statute-consolidated/2005/279">279/2005</finlex:ref>
+                    </finlex:statuteReference>
+                    <finlex:statuteReference>
+                        <finlex:ref href="/akn/fi/act/statute-consolidated/2002/1108">1108/2002</finlex:ref>
+                    </finlex:statuteReference>
+                    <finlex:statuteReference>
+                        <finlex:ref href="/akn/fi/act/statute-consolidated/2002/1109">1109/2002</finlex:ref>
+                    </finlex:statuteReference>
+                    <finlex:statuteReference>
+                        <finlex:ref href="/akn/fi/act/statute-consolidated/2024/780">780/2024</finlex:ref>
+                    </finlex:statuteReference>
+                    <finlex:statuteReference>
+                        <finlex:ref href="/akn/fi/act/statute-consolidated/2006/358">358/2006</finlex:ref>
+                    </finlex:statuteReference>
+                    <finlex:statuteReference>
+                        <finlex:ref href="/akn/fi/act/statute-consolidated/2006/357">357/2006</finlex:ref>
+                    </finlex:statuteReference>
+                    <finlex:statuteReference>
+                        <finlex:ref href="/akn/fi/act/statute-consolidated/2004/277">277/2004</finlex:ref>
+                    </finlex:statuteReference>
+                    <finlex:statuteReference>
+                        <finlex:ref href="/akn/fi/act/statute-consolidated/2012/1060">1060/2012</finlex:ref>
+                    </finlex:statuteReference>
+                    <finlex:statuteReference>
+                        <finlex:ref href="/akn/fi/act/statute-consolidated/2002/963">963/2002</finlex:ref>
+                    </finlex:statuteReference>
+                    <finlex:statuteReference>
+                        <finlex:ref href="/akn/fi/act/statute-consolidated/2022/1140">1140/2022</finlex:ref>
+                    </finlex:statuteReference>
+                    <finlex:statuteReference>
+                        <finlex:ref href="/akn/fi/act/statute-consolidated/2018/1283">1283/2018</finlex:ref>
+                    </finlex:statuteReference>
+                    <finlex:statuteReference>
+                        <finlex:ref href="/akn/fi/act/statute-consolidated/2020/985">985/2020</finlex:ref>
+                    </finlex:statuteReference>
+                    <finlex:statuteReference>
+                        <finlex:ref href="/akn/fi/act/statute-consolidated/2020/984">984/2020</finlex:ref>
+                    </finlex:statuteReference>
+                    <finlex:statuteReference>
+                        <finlex:ref href="/akn/fi/act/statute-consolidated/2021/1152">1152/2021</finlex:ref>
+                    </finlex:statuteReference>
+                    <finlex:statuteReference>
+                        <finlex:ref href="/akn/fi/act/statute-consolidated/2009/1063">1063/2009</finlex:ref>
+                    </finlex:statuteReference>
+                    <finlex:statuteReference>
+                        <finlex:ref href="/akn/fi/act/statute-consolidated/2007/1230">1230/2007</finlex:ref>
+                    </finlex:statuteReference>
+                    <finlex:statuteReference>
+                        <finlex:ref href="/akn/fi/act/statute-consolidated/2007/1228">1228/2007</finlex:ref>
+                    </finlex:statuteReference>
+                    <finlex:statuteReference>
+                        <finlex:ref href="/akn/fi/act/statute-consolidated/2022/1139">1139/2022</finlex:ref>
+                    </finlex:statuteReference>
+                    <finlex:statuteReference>
+                        <finlex:ref href="/akn/fi/act/statute-consolidated/2014/1079">1079/2014</finlex:ref>
+                    </finlex:statuteReference>
+                    <finlex:statuteReference>
+                        <finlex:ref href="/akn/fi/act/statute-consolidated/2011/1397">1397/2011</finlex:ref>
+                    </finlex:statuteReference>
+                    <finlex:statuteReference>
+                        <finlex:ref href="/akn/fi/act/statute-consolidated/2011/1396">1396/2011</finlex:ref>
+                    </finlex:statuteReference>
+                    <finlex:statuteReference>
+                        <finlex:ref href="/akn/fi/act/statute-consolidated/2021/1157">1157/2021</finlex:ref>
+                    </finlex:statuteReference>
+                    <finlex:statuteReference>
+                        <finlex:ref href="/akn/fi/act/statute-consolidated/2024/779">779/2024</finlex:ref>
+                    </finlex:statuteReference>
+                    <finlex:statuteReference>
+                        <finlex:ref href="/akn/fi/act/statute-consolidated/2014/1140">1140/2014</finlex:ref>
+                    </finlex:statuteReference>
+                    <finlex:statuteReference>
+                        <finlex:ref href="/akn/fi/act/statute-consolidated/2012/1059">1059/2012</finlex:ref>
+                    </finlex:statuteReference>
+                </finlex:issuedUnderThisAct>
+            </proprietary>
+        </meta>
+        <preface>
+            <p>
+                <docNumber>453/2002</docNumber>
+                <docTitle>Laki kiinteistötietojärjestelmästä ja siitä tuotettavasta tietopalvelusta</docTitle>
+            </p>
+        </preface>
+        <preamble>
+            <formula name="enactingClause">
+                <p>Eduskunnan päätöksen mukaisesti säädetään:</p>
+            </formula>
+        </preamble>
+        <body>
+            <hcontainer finlex:outline="Säädöksen teksti" name="statuteProvisionsWrapper">
+                <section eId="sec_1">
+                    <num>1 §</num>
+                    <heading eId="sec_1__heading">Lain tarkoitus</heading>
+                    <subsection eId="sec_1__subsec_1">
+                        <content>
+                            <p>Tämän lain tarkoituksena on järjestää kiinteistöjä ja muita maa- ja vesialueiden yksiköitä koskevat tiedot käsittävä automaattisen tietojenkäsittelyn avulla tapahtuva valtakunnallinen tietopalvelu. Tämä palvelu toteutetaan yleiseen käyttöön tarkoitetun yhtenäisen kiinteistötietojärjestelmän avulla.</p>
+                        </content>
+                    </subsection>
+                </section>
+                <section eId="sec_2">
+                    <num>2 §</num>
+                    <heading eId="sec_2__heading">Lain soveltamisala</heading>
+                    <subsection eId="sec_2__subsec_1">
+                        <content>
+                            <p>Tätä lakia sovelletaan kiinteistötietojärjestelmän perustamiseen, järjestelmän ylläpitämiseen ja järjestelmään sisältyvien tietojen luovuttamiseen ja käyttämiseen.</p>
+                        </content>
+                    </subsection>
+                </section>
+                <section eId="sec_3">
+                    <num>3 §</num>
+                    <heading eId="sec_3__heading">Kiinteistötietojärjestelmän tietosisältö</heading>
+                    <subsection eId="sec_3__subsec_1">
+                        <content>
+                            <p>
+                                Kiinteistötietojärjestelmä käsittää kiinteistörekisterilain 
+                                <ref href="/akn/fi/act/statute-consolidated/1985/392">(392/1985)</ref>
+                                 mukaiset tiedot ja lainhuuto- ja kiinnitysrekisteriin merkittävät tiedot sekä muita tietoja sen mukaan kuin muualla laissa säädetään.
+                            </p>
+                        </content>
+                    </subsection>
+                </section>
+                <section eId="sec_4">
+                    <num>4 §</num>
+                    <heading eId="sec_4__heading">Tietojen tallentaminen kiinteistötietojärjestelmään</heading>
+                    <subsection eId="sec_4__subsec_1">
+                        <content>
+                            <p>Viranomaisella, jonka vastuulla on kiinteistötietojärjestelmän tietosisältöön kuuluvan tiedon tuottaminen, on velvollisuus huolehtia tällaisen tiedon tallentamisesta kiinteistötietojärjestelmään ja sen pitämisestä ajan tasalla.</p>
+                        </content>
+                    </subsection>
+                </section>
+                <section eId="sec_5">
+                    <num>5 §</num>
+                    <heading eId="sec_5__heading">Kiinteistötietojärjestelmän hallinto</heading>
+                    <subsection eId="sec_5__subsec_1v20130902" finlex:originalVersion="@20130902" finlex:originalVersionLabel="13.12.2013/902">
+                        <content>
+                            <p>Tässä laissa tarkoitetun kiinteistötietojärjestelmän perustamisesta, hallinnosta, ylläpitämisestä, tietopalvelusta ja järjestelmän kehittämisestä huolehtii Maanmittauslaitos.</p>
+                        </content>
+                    </subsection>
+                    <subsection eId="sec_5__subsec_2v20130902" finlex:originalVersion="@20130902" finlex:originalVersionLabel="13.12.2013/902">
+                        <content>
+                            <p>Kiinteistötietojärjestelmän hallinnosta, ylläpitämisestä, tietopalvelusta ja kehittämisestä aiheutuvien kustannustensa kattamiseksi Maanmittauslaitos saa kiinteistötietojärjestelmän suoritteista kertyvistä tuloista maa- ja metsätalousministeriön asetuksella säädettävän osuuden. Kiinteistötietojärjestelmän muista toimenpiteistä aiheutuvien kustannusten kattamisesta järjestelmän suoritteista saatavilla tuloilla sekä tulojen jakamisesta muutoin järjestelmästä huolehtivien viranomaisten kesken säädetään maa- ja metsätalousministeriön asetuksella. Maa- ja metsätalousministeriön on ennen asetuksen antamista kuultava keskeisiä kiinteistötietojärjestelmän tiedon tuottajia.</p>
+                        </content>
+                    </subsection>
+                    <subsection eId="sec_5__subsec_3">
+                        <content>
+                            <p>Ne kunnat, jotka tämän lain voimaan tullessa toimivat kiinteistörekisterin pitäjinä, saavat tämän lain mukaisen valtakunnallisen kiinteistötietojärjestelmän aiheuttamien kustannusten kattamiseksi kiinteistötietojärjestelmän suoritteista kertyvistä tuloista maa- ja metsätalousministeriön asetuksella säädettävän osuuden.</p>
+                        </content>
+                    </subsection>
+                </section>
+                <section eId="sec_6v20190103" finlex:originalVersion="@20190103" finlex:originalVersionLabel="18.1.2019/103">
+                    <num>6 §</num>
+                    <heading eId="sec_6v20190103__heading">Tietojen luovuttaminen tietopalveluna ja käsittelyn rajoittaminen</heading>
+                    <subsection eId="sec_6v20190103__subsec_1v20190103">
+                        <content>
+                            <p>Maanmittauslaitoksen on järjestettävä jokaiselle mahdollisuus saada Maanmittauslaitoksessa maksutta luettavakseen kiinteistötietojärjestelmässä olevat tiedot ja tehdä niistä muistiinpanoja. Maksua vastaan tietoja luovutetaan otteina, todistuksina ja muina tulosteina sekä teknisen käyttöyhteyden avulla. Jollei erityisestä syystä muuta johdu, voidaan tiedoista antaa maksua vastaan kopio sähköisessä muodossa.</p>
+                        </content>
+                    </subsection>
+                    <subsection eId="sec_6v20190103__subsec_2v20191187" finlex:originalVersion="@20191187" finlex:originalVersionLabel="29.11.2019/1187">
+                        <content>
+                            <p>Otteita, todistuksia ja muita tulosteita sekä 1 momentissa tarkoitettuja kopioita voivat antaa kunnat, Maanmittauslaitos, Digi- ja väestötietovirasto, Ahvenanmaan maakunnassa Ahvenanmaan valtionvirasto sekä Maanmittauslaitoksen päätöksen nojalla myös muut viranomaiset, joilla on tekninen käyttöyhteys kiinteistötietojärjestelmään.</p>
+                        </content>
+                    </subsection>
+                    <subsection eId="sec_6v20190103__subsec_3v20250654" finlex:originalVersion="@20250654" finlex:originalVersionLabel="27.6.2025/654">
+                        <content>
+                            <p>Maanmittauslaitos saa teknisen käyttöyhteyden avulla luovuttaa 4 §:ssä tarkoitetun viranomaisen puolesta tietoja kiinteistötietojärjestelmästä oikeushallinnon viranomaiselle, Lupa- ja valvontavirastolle, elinvoimakeskukselle, kunnalle, Verohallinnolle, puolustusministeriölle, Puolustusvoimille, Rajavartiolaitokselle, poliisille ja muulle esitutkintaviranomaiselle, pelastusviranomaiselle, kiinteistönmuodostamistehtäviä hoitavalle viranomaiselle, väestökirjahallinnon viranomaiselle, Metsähallitukselle, Senaatti-kiinteistöille ja kaupanvahvistajalle. Lisäksi hakemuksen perusteella Maanmittauslaitos saa myöntää luvan tietojen saamiseen ja välittämiseen teknisen käyttöyhteyden avulla. Tietoja saadaan luovuttaa ja välittää sille, joka tarvitsee tietoja yhdyskuntasuunnittelua, kiinteistönvälitystä, kiinteistönarviointia, luoton myöntämistä ja valvontaa tai muuta näihin verrattavaa kiinteistöihin liittyvää käyttötarkoitusta taikka kansallisen turvallisuuden varmistamista varten. Käyttölupaan voidaan ottaa tietojen hakuperustetta, muuta järjestelmän käyttöä ja sen valvontaa koskevia ehtoja. Lupaa ei kuitenkaan tarvita kiinteistötunnusta ja kiinteistöjaotusta koskevan tiedon saamiseen ja välittämiseen teknisen käyttöyhteyden avulla.</p>
+                        </content>
+                    </subsection>
+                    <subsection eId="sec_6v20190103__subsec_4v20190103">
+                        <content>
+                            <p>Henkilötietojen siirrosta kolmansiin maihin tai kansainvälisille järjestöille säädetään luonnollisten henkilöiden suojelusta henkilötietojen käsittelyssä sekä näiden tietojen vapaasta liikkuvuudesta ja direktiivin 95/46/EY kumoamisesta (yleinen tietosuoja-asetus) annetun Euroopan parlamentin ja neuvoston asetuksen (EU) 2016/679 V luvussa.</p>
+                        </content>
+                    </subsection>
+                    <subsection eId="sec_6v20190103__subsec_5v20190103">
+                        <content>
+                            <p>Edellä 4 momentissa mainitun asetuksen 18 artiklan 1 kohtaa ei sovelleta kiinteistötietojärjestelmään.</p>
+                        </content>
+                    </subsection>
+                </section>
+                <section eId="sec_7v20111189" finlex:originalVersion="@20111189" finlex:originalVersionLabel="25.11.2011/1189">
+                    <num>7 §</num>
+                    <heading eId="sec_7v20111189__heading">Maksut</heading>
+                    <subsection eId="sec_7v20111189__subsec_1v20111189">
+                        <content>
+                            <p>
+                                Kiinteistötietojärjestelmän suoritteista ja tietopalveluista peritään valtiolle ja kunnalle maksuja, joihin sovelletaan, mitä valtion maksuperustelaissa 
+                                <ref href="/akn/fi/act/statute-consolidated/1992/150">(150/1992)</ref>
+                                 säädetään, jollei jostakin suoritteesta toisin säädetä.
+                            </p>
+                        </content>
+                    </subsection>
+                    <subsection eId="sec_7v20111189__subsec_2v20111189">
+                        <content>
+                            <p>Perittävien maksujen suuruudesta säädetään maa- ja metsätalousministeriön asetuksella. Maa- ja metsätalousministeriön on ennen asetuksen antamista kuultava keskeisiä kiinteistötietojärjestelmän tiedon tuottajia.</p>
+                        </content>
+                    </subsection>
+                    <subsection eId="sec_7v20111189__subsec_3v20120908" finlex:originalVersion="@20120908" finlex:originalVersionLabel="14.12.2012/908">
+                        <content>
+                            <p>Julkishallinnon sisäiset vakiomuotoiset tietoluovutukset viranomaistoimintaa varten teknisen käyttöyhteyden kautta ovat maksuttomia.</p>
+                        </content>
+                    </subsection>
+                    <subsection eId="sec_7v20111189__subsec_4v20160376" finlex:originalVersion="@20160376" finlex:originalVersionLabel="20.5.2016/376">
+                        <content>
+                            <p>Kiinteistötunnusta ja kiinteistöjaotusta koskevan tiedon käyttöoikeus on maksuton. </p>
+                        </content>
+                    </subsection>
+                </section>
+                <section eId="sec_8v20190103" finlex:originalVersion="@20190103" finlex:originalVersionLabel="18.1.2019/103">
+                    <num>8 §</num>
+                    <heading eId="sec_8v20190103__heading">Korvausvastuu</heading>
+                    <subsection eId="sec_8v20190103__subsec_1v20190103">
+                        <content>
+                            <p>Sillä, jolle on aiheutunut vahinkoa kiinteistötietojärjestelmästä luovutetussa tiedossa olevasta virheestä tai puutteesta, on oikeus saada korvaus tiedon luovuttajalta sen mukaan kuin tässä pykälässä säädetään.</p>
+                        </content>
+                    </subsection>
+                    <subsection eId="sec_8v20190103__subsec_2v20190103">
+                        <intro eId="sec_8v20190103__subsec_2v20190103__intro">
+                            <p>Tiedon luovuttaja vastaa vahinkoa kärsineelle kiinteistötietojärjestelmästä luovutetussa:</p>
+                        </intro>
+                        <paragraph eId="sec_8v20190103__subsec_2v20190103__para_1v20190103">
+                            <num>1)</num>
+                            <content>
+                                <p>kiinteistörekisterilain mukaisessa tiedossa olevasta virheestä tai puutteesta aiheutuneesta vahingosta sen mukaan kuin kiinteistörekisterilain 11 §:ssä säädetään;</p>
+                            </content>
+                        </paragraph>
+                        <paragraph eId="sec_8v20190103__subsec_2v20190103__para_2v20190103">
+                            <num>2)</num>
+                            <content>
+                                <p>
+                                    lainhuuto- ja kiinnitysrekisterin mukaisessa tiedossa olevasta virheestä tai puutteesta aiheutuneesta vahingosta sen mukaan kuin maakaaren 
+                                    <ref href="/akn/fi/act/statute-consolidated/1995/540#chp_7__sec_4">(540/1995) 7 luvun 4 §:ssä</ref>
+                                     säädetään; sekä
+                                </p>
+                            </content>
+                        </paragraph>
+                        <paragraph eId="sec_8v20190103__subsec_2v20190103__para_3v20190103">
+                            <num>3)</num>
+                            <content>
+                                <p>
+                                    muun lain tai asetuksen mukaisessa tiedossa olevasta virheestä tai puutteesta aiheutuneesta vahingosta sen mukaan kuin vahingonkorvauslaissa 
+                                    <ref href="/akn/fi/act/statute-consolidated/1974/412">(412/1974)</ref>
+                                     säädetään, jollei jonkin tiedon osalta erikseen toisin säädetä.
+                                </p>
+                            </content>
+                        </paragraph>
+                    </subsection>
+                    <subsection eId="sec_8v20190103__subsec_3v20190103">
+                        <content>
+                            <p>Tiedon luovuttajan on kuultava asianomaista tiedon tuottajaa ennen 2 momentissa tarkoitettua korvausta koskevan asian ratkaisemista.</p>
+                        </content>
+                    </subsection>
+                    <subsection eId="sec_8v20190103__subsec_4v20190103">
+                        <content>
+                            <p>Jos kiinteistötietojärjestelmästä luovutetussa tiedossa oleva virhe tai puute on aiheutunut kiinteistötietojärjestelmään siirretyssä tiedossa olevasta virheestä tai puutteesta tai 4 §:ssä tarkoitetun velvollisuuden laiminlyömisestä, asianomainen julkisyhteisö on velvollinen korvaamaan tiedon luovuttajalle tämän suorittaman vahingonkorvauksen.</p>
+                        </content>
+                    </subsection>
+                    <subsection eId="sec_8v20190103__subsec_5v20190103">
+                        <content>
+                            <p>Jos kiinteistötietojärjestelmään sisältyvän tiedon virheellisyys aiheutuu kiinteistötietojärjestelmän hallinnosta huolehtivan Maanmittauslaitoksen 5 §:n 1 momentissa tarkoitetusta toiminnasta, Maanmittauslaitos vastaa tiedon luovuttajalle virheestä aiheutuneesta vahingosta sen mukaan kuin tämän pykälän 2 momentissa säädetään.</p>
+                        </content>
+                    </subsection>
+                    <subsection eId="sec_8v20190103__subsec_6v20190103">
+                        <content>
+                            <p>Luonnollisten henkilöiden suojelusta henkilötietojen käsittelyssä sekä näiden tietojen vapaasta liikkuvuudesta ja direktiivin 95/46/EY kumoamisesta (yleinen tietosuoja-asetus) annetun Euroopan parlamentin ja neuvoston asetuksen (EU) 2016/679 rikkomisesta aiheutuneen vahingon korvaamisesta säädetään kuitenkin mainitussa asetuksessa.</p>
+                        </content>
+                    </subsection>
+                </section>
+                <section eId="sec_9">
+                    <num>9 §</num>
+                    <heading eId="sec_9__heading">Korvausoikeuden siirtyminen</heading>
+                    <subsection eId="sec_9__subsec_1">
+                        <content>
+                            <p>Jos vahinkoa kärsineellä on sopimussuhteen tai muun sellaisen erityisen perusteen nojalla oikeus saada joltakulta vahingonkorvausta 8 §:ssä tarkoitetusta vahingosta, siirtyy vahinkoa kärsineen oikeus korvauksen saamiseen valtiolle tai kunnalle siltä osin kuin valtio tai kunta on 8 §:n perusteella maksanut korvausta vahingosta.</p>
+                        </content>
+                    </subsection>
+                    <subsection eId="sec_9__subsec_2">
+                        <content>
+                            <p>Valtion tai kunnan oikeus saada korvausta 1 momentin nojalla alkaa siitä päivästä, jolloin valtio tai kunta on maksanut korvauksen vahinkoa kärsineelle tai tuomioistuimen lainvoimaisella päätöksellä velvoitettu maksamaan korvausta. Korvauksen vaatimisesta päättävät valtion osalta asianomaiset viranomaiset maksamiensa korvausten osalta ja kunnan osalta kunnanhallitus. Korvauksesta voidaan osaksi tai kokonaan luopua, jos korvauksen vaatiminen vahingon suuruus ja muut olosuhteet huomioon ottaen on kohtuutonta.</p>
+                        </content>
+                    </subsection>
+                    <subsection eId="sec_9__subsec_3">
+                        <content>
+                            <p>
+                                Jos useampi kuin yksi on 1 momentissa tarkoitetun korvausvelvollisuuden tai muun perusteen nojalla velvollinen maksamaan valtiolle tai kunnalle sen 8 §:n nojalla suorittaman korvauksen määrän, vastaavat he korvauksen suorittamisesta yhteisvastuullisesti. Se, jota ei ole tuomittu maksamaan täyttä korvausta, vastaa kuitenkin vain tuomitusta määrästä. Lisäksi korvausmäärän jakamiseen korvausvelvollisten kesken sovelletaan, mitä 
+                                <ref href="/akn/fi/act/statute-consolidated/1974/412#chp_6__sec_3">vahingonkorvauslain 6 luvun 3 §:ssä</ref>
+                                 säädetään.
+                            </p>
+                        </content>
+                    </subsection>
+                </section>
+                <section eId="sec_10">
+                    <num>10 §</num>
+                    <heading eId="sec_10__heading">Tarkemmat määräykset</heading>
+                    <subsection eId="sec_10__subsec_1">
+                        <content>
+                            <p>Maanmittauslaitos antaa tarvittaessa tarkempia määräyksiä kiinteistötietojärjestelmän ylläpitämisessä noudatettavasta teknisestä menettelystä, tietojen hakuperusteesta ja muista järjestelmän käyttöä koskevista ehdoista ja sen valvonnasta.</p>
+                        </content>
+                    </subsection>
+                </section>
+                <section eId="sec_11">
+                    <num>11 §</num>
+                    <heading eId="sec_11__heading">Tarkemmat säännökset</heading>
+                    <subsection eId="sec_11__subsec_1">
+                        <content>
+                            <p>Tarkempia säännöksiä tämän lain täytäntöönpanosta voidaan antaa valtioneuvoston asetuksella.</p>
+                        </content>
+                    </subsection>
+                </section>
+                <section eId="sec_12v20111189" finlex:originalVersion="@20111189" finlex:originalVersionLabel="25.11.2011/1189">
+                    <num>12 §</num>
+                    <heading eId="sec_12v20111189__heading">Yhteistyöryhmä</heading>
+                    <subsection eId="sec_12v20111189__subsec_1v20111189">
+                        <content>
+                            <p>Kiinteistötietojärjestelmän kehittämistä ja ylläpitoa varten Maanmittauslaitos asettaa kolmeksi vuodeksi kerrallaan yhteistyöryhmän, johon kutsutaan järjestelmän ylläpitäjien ja käyttäjien edustajia.</p>
+                        </content>
+                    </subsection>
+                </section>
+                <section eId="sec_13" finlex:entryIntoForce="true" finlex:vsId="453/2002">
+                    <num>13 §</num>
+                    <heading eId="sec_13__heading">Voimaantulo- ja siirtymäsäännös</heading>
+                    <subsection eId="sec_13__subsec_1">
+                        <content>
+                            <p>Tämä laki tulee voimaan 1 päivänä tammikuuta 2003.</p>
+                        </content>
+                    </subsection>
+                    <subsection eId="sec_13__subsec_2">
+                        <content>
+                            <p>
+                                Mitä vesilain 
+                                <ref href="/akn/fi/act/statute-consolidated/1961/264#chp_21__sec_8">(264/1961) 21 luvun 8 §:ssä</ref>, muinaismuistolain 
+                                <ref href="/akn/fi/act/statute-consolidated/1963/295#sec_6">(295/1963) 6 §:n</ref>
+                                 1 momentissa, kestävän metsätalouden rahoituksesta annetun lain 
+                                <ref href="/akn/fi/act/statute-consolidated/1996/1094#sec_19">(1094/1996) 19 §:n</ref>
+                                 2 momentissa ja luonnonsuojelulain 
+                                <ref href="/akn/fi/act/statute-consolidated/1996/1096#sec_24">(1096/1996) 24 §:n</ref>
+                                 4 momentissa, 25 §:n 3 momentissa, 27 §:n 4 momentissa sekä 30 ja 47 §:ssä sekä maankäyttö- ja rakennuslain 
+                                <ref href="/akn/fi/act/statute-consolidated/1999/132#sec_158">(132/1999) 158 §:n</ref>
+                                 4 momentissa ja 164 §:n 4 momentissa tai niiden nojalla säädetään päätöksen, sopimuksen tai muun vastaavan tiedon merkitsemisestä kiinteistörekisteriin, koskee tämän lain voimaan tultua asianomaisen tiedon tallentamista kiinteistötietojärjestelmään.
+                            </p>
+                        </content>
+                    </subsection>
+                    <subsection eId="sec_13__subsec_3">
+                        <content>
+                            <p>Ennen tämän lain voimaantuloa voidaan ryhtyä sen täytäntöönpanon edellyttämiin toimenpiteisiin.</p>
+                        </content>
+                    </subsection>
+                </section>
+            </hcontainer>
+            <hcontainer finlex:outline="Esityöt ja allekirjoitukset" name="conclusions">
+                <hcontainer finlex:outline="Esityöt" name="preliminaryWork">
+                    <content>
+                        <p>
+                            <ref href="/akn/fi/doc/government-proposal/2001/141">HE 141/2001</ref>
+                        </p>
+                        <p>MmVM 3/2002</p>
+                        <p>EV 43/2002</p>
+                    </content>
+                </hcontainer>
+            </hcontainer>
+            <hcontainer name="amendmentEntryIntoForceAndApplianceProvisions">
+                <heading>Muutossäädösten voimaantulo ja soveltaminen</heading>
+                <hcontainer eId="entryIntoForce_20090576" name="entryIntoForce">
+                    <heading>24.7.2009/576:</heading>
+                    <content>
+                        <p>Tämän lain voimaantulosta säädetään erikseen lailla.</p>
+                        <p>
+                            <ref href="/akn/fi/doc/government-proposal/2009/30">HE 30/2009</ref>, MmVM 5/2009, EV 89/2009
+                        </p>
+                    </content>
+                </hcontainer>
+                <hcontainer eId="entryIntoForce_20111189" name="entryIntoForce">
+                    <heading>25.11.2011/1189:</heading>
+                    <content>
+                        <p>Tämä laki tulee voimaan 1 päivänä tammikuuta 2012.</p>
+                        <p>Ennen tämän lain voimaantuloa voidaan ryhtyä lain täytäntöönpanon edellyttämiin toimiin.</p>
+                        <p>
+                            <ref href="/akn/fi/doc/government-proposal/2011/23">HE 23/2011</ref>, MmVM 4/2011, EV 35/2011
+                        </p>
+                    </content>
+                </hcontainer>
+                <hcontainer eId="entryIntoForce_20120908" name="entryIntoForce">
+                    <heading>14.12.2012/908:</heading>
+                    <content>
+                        <p>Tämä laki tulee voimaan 1 päivänä tammikuuta 2013.</p>
+                        <p>Ennen tämän lain voimaantuloa voidaan ryhtyä lain täytäntöönpanon edellyttämiin toimiin.</p>
+                        <p>
+                            <ref href="/akn/fi/doc/government-proposal/2012/151">HE 151/2012</ref>, MmVM 5/2012, EV 134/2012
+                        </p>
+                    </content>
+                </hcontainer>
+                <hcontainer eId="entryIntoForce_20130902" name="entryIntoForce">
+                    <heading>13.12.2013/902:</heading>
+                    <content>
+                        <p>Tämä laki tulee voimaan 1 päivänä tammikuuta 2014.</p>
+                        <p>
+                            <ref href="/akn/fi/doc/government-proposal/2013/68">HE 68/2013</ref>, MmVM 7/2013, EV 102/2013
+                        </p>
+                    </content>
+                </hcontainer>
+                <hcontainer eId="entryIntoForce_20160376" name="entryIntoForce">
+                    <heading>20.5.2016/376:</heading>
+                    <content>
+                        <p>Tämä laki tulee voimaan 1 päivänä tammikuuta 2017.</p>
+                        <p>
+                            <ref href="/akn/fi/doc/government-proposal/2015/102">HE 102/2015</ref>, MmVM 5/2016, EV 40/2016
+                        </p>
+                    </content>
+                </hcontainer>
+                <hcontainer eId="entryIntoForce_20190103" name="entryIntoForce">
+                    <heading>18.1.2019/103:</heading>
+                    <content>
+                        <p>Tämä laki tulee voimaan 23 päivänä tammikuuta 2019.</p>
+                        <p>
+                            <ref href="/akn/fi/doc/government-proposal/2018/26">HE 26/2018</ref>, MmVM 8/2018, EV 115/2018
+                        </p>
+                    </content>
+                </hcontainer>
+                <hcontainer eId="entryIntoForce_20190473" name="entryIntoForce">
+                    <heading>29.3.2019/473:</heading>
+                    <content>
+                        <p>Tämä laki tulee voimaan 1 päivänä tammikuuta 2020.</p>
+                        <p>
+                            <ref href="/akn/fi/doc/government-proposal/2018/253">HE 253/2018</ref>, PuVM 6/2018, EV 268/2018
+                        </p>
+                    </content>
+                </hcontainer>
+                <hcontainer eId="entryIntoForce_20191187" name="entryIntoForce">
+                    <heading>29.11.2019/1187:</heading>
+                    <content>
+                        <p>Tämä laki tulee voimaan 1 päivänä tammikuuta 2020.</p>
+                        <p>
+                            <ref href="/akn/fi/doc/government-proposal/2019/10">HE 10/2019</ref>, HaVM 3/2019, EV 20/2019
+                        </p>
+                    </content>
+                </hcontainer>
+                <hcontainer eId="entryIntoForce_20250654" name="entryIntoForce">
+                    <heading>27.6.2025/654:</heading>
+                    <content>
+                        <p>Tämä laki tulee voimaan 1 päivänä tammikuuta 2026.</p>
+                        <p>
+                            <ref href="/akn/fi/doc/government-proposal/2025/13">HE 13/2025</ref>, HaVM 15/2025, EV 74/2025
+                        </p>
+                    </content>
+                </hcontainer>
+            </hcontainer>
+        </body>
+    </act>
+</akomaNtoso>

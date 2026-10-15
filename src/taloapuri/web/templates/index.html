@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% block title %}Etusivu{% endblock %}
+{% block content %}
+<h1>Tervetuloa Taloapuriin</h1>
+<p class="lead">Taloapuri auttaa taloyhtiön asioiden hoidossa vaihe kerrallaan.</p>
+
+{% if me and me.is_platform_admin %}
+  <section class="notice" aria-labelledby="yllapito">
+    <h2 id="yllapito">Palvelun ylläpito</h2>
+    <p>Olet palvelun ylläpitäjä. Voit hallita lakilähteitä, joita tekoäly käyttää kaikissa taloyhtiöissä.</p>
+    <p><a class="button" href="/yllapito/lait">Lakilähteet</a></p>
+  </section>
+{% endif %}
+
+{% if logged_in %}
+  {% if companies %}
+    <h2>Valitse taloyhtiö</h2>
+    <ul class="company-list">
+      {% for company in companies %}
+        <li><a class="card-link" href="/yhtiot/{{ company.id }}">{{ company.name }}</a></li>
+      {% endfor %}
+    </ul>
+  {% elif not (me and me.is_platform_admin) %}
+    <h2>Valitse taloyhtiö</h2>
+    <p>Sinulla ei ole vielä käyttöoikeutta yhteenkään taloyhtiöön. Pyydä isännöitsijää tai
+      hallituksen puheenjohtajaa lisäämään sinut.</p>
+  {% endif %}
+{% elif dev_auth %}
+  <section aria-labelledby="dev-otsikko" class="notice">
+    <h2 id="dev-otsikko">Kirjaudu sisään</h2>
+    <p>Kirjaudu sähköpostiosoitteellasi. Tämä on kehitysvaiheen kirjautuminen ilman salasanaa;
+      turvallinen kirjautuminen lisätään ennen käyttöönottoa.</p>
+    {% if login_error %}
+      <div class="error-summary" role="alert" tabindex="-1" autofocus>
+        <h3>Kirjautuminen ei onnistunut</h3>
+        <p><a href="#email">{{ login_error }}</a></p>
+      </div>
+    {% endif %}
+    <form method="post" action="/dev/kirjaudu">
+      <div class="field{% if login_error %} field-error{% endif %}">
+        <label for="email">Sähköposti</label>
+        <input id="email" name="email" type="email" required autocomplete="email"
+          {% if login_error %}aria-invalid="true"{% endif %}>
+      </div>
+      <button type="submit">Kirjaudu</button>
+    </form>
+  </section>
+{% else %}
+  <p>Kirjautuminen ei ole vielä käytössä tässä ympäristössä.</p>
+{% endif %}
+
+<section aria-labelledby="ukk">
+  <h2 id="ukk">Usein kysytyt kysymykset</h2>
+  {% for view in faq %}
+    {% include "_faq_entry.html" %}
+  {% endfor %}
+  <p><a href="/ukk">Kaikki kysymykset ja vastaukset</a></p>
+</section>
+{% endblock %}

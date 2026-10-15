@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block title %}Asukkaat ja osakkaat{% endblock %}
+{% block content %}
+<p><a href="/yhtiot/{{ ctx.company_id }}">← Takaisin etusivulle</a></p>
+<h1>Asukkaat ja osakkaat</h1>
+{% if notice %}<p class="notice notice-success" role="status">{{ notice }}</p>{% endif %}
+
+<p><a class="button" href="/yhtiot/{{ ctx.company_id }}/asukkaat/uusi">Lisää asukas tai osakas</a>
+   <a class="button-secondary" href="/yhtiot/{{ ctx.company_id }}/huoneistot">Huoneistot</a></p>
+
+{% if members %}
+  <table class="case-table">
+    <caption class="visually-hidden">Yhtiön käyttäjät, voimassa olevat ensin</caption>
+    <thead>
+      <tr><th scope="col">Nimi</th><th scope="col">Rooli</th><th scope="col">Huoneisto</th>
+          <th scope="col">Tila</th><th scope="col">Toiminto</th></tr>
+    </thead>
+    <tbody>
+      {% for m in members %}
+        <tr>
+          <td>{{ m.display_name }}{% if m.email %}<br><span class="muted">{{ m.email }}</span>{% endif %}</td>
+          <td>{{ ROLE_LABELS_FI.get(m.role, m.role) }}</td>
+          <td>{{ m.apartments | join(", ") or "–" }}</td>
+          <td>
+            {% if m.active %}Voimassa {{ m.valid_from | fi_date_dt }} alkaen
+            {% else %}Päättynyt {{ m.valid_to | fi_date_dt }}{% endif %}
+          </td>
+          <td>
+            {% if m.active and m.role in ("shareholder", "resident") and m.user_id != ctx.user_id %}
+              <a href="/yhtiot/{{ ctx.company_id }}/asukkaat/{{ m.membership_id }}/paata">Päätä käyttöoikeus<span class="visually-hidden">: {{ m.display_name }}</span></a>
+            {% else %}–{% endif %}
+          </td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% else %}
+  <p>Ei vielä käyttäjiä.</p>
+{% endif %}
+{% endblock %}

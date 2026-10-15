@@ -1,0 +1,15 @@
+{# Huoneiston historia: vain turvalliset tiedot, ei aiempien asukkaiden nimiä tai kuvauksia. #}
+{% if history %}
+  <ul class="history-list">
+    {% for h in history %}
+      <li>
+        <strong>{{ CASE_TYPE_LABELS_FI.get(h.case_type, h.case_type) }}</strong>
+        {% if h.event_date %}– {{ h.event_date | fi_date }}{% endif %}
+        – {{ STATUS_LABELS_FI.get(h.status, h.status) }}{% if h.closed_at %} {{ h.closed_at | fi_date_dt }}{% endif %}
+        {% if h.history_note %}<br>{{ h.history_note }}{% endif %}
+      </li>
+    {% endfor %}
+  </ul>
+{% else %}
+  <p class="muted">Ei aiempia merkintöjä.</p>
+{% endif %}

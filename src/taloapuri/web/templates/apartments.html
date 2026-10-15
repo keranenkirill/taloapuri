@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block title %}{% if errors %}Virhe: {% endif %}Huoneistot{% endblock %}
+{% block content %}
+<p><a href="/yhtiot/{{ ctx.company_id }}/asukkaat">← Asukkaat ja osakkaat</a></p>
+<h1>Huoneistot</h1>
+
+{% include "_error_summary.html" %}
+
+<form method="post" action="/yhtiot/{{ ctx.company_id }}/huoneistot" novalidate>
+  <div class="field{% if errors.label %} field-error{% endif %}">
+    <label for="label">Uuden huoneiston tunnus</label>
+    <p class="hint" id="label-ohje">Esimerkiksi ”A 12” tai ”B 3”.</p>
+    {% if errors.label %}<p class="error-message" id="label-virhe">{{ errors.label }}</p>{% endif %}
+    <input id="label" name="label" type="text" maxlength="32" required value="{{ label }}"
+      aria-describedby="label-ohje{% if errors.label %} label-virhe{% endif %}"
+      {% if errors.label %}aria-invalid="true"{% endif %}>
+  </div>
+  <button type="submit">Lisää huoneisto</button>
+</form>
+
+<h2>Huoneistojen historia</h2>
+{% for a in apartments %}
+  <section aria-labelledby="h-{{ a.id }}">
+    <h3 id="h-{{ a.id }}">{{ a.label }}</h3>
+    {% with history = histories[a.id] %}{% include "_apartment_history.html" %}{% endwith %}
+  </section>
+{% else %}
+  <p>Ei vielä huoneistoja.</p>
+{% endfor %}
+{% endblock %}

@@ -1,0 +1,158 @@
+{% extends "base.html" %}
+{% block title %}{% if error %}Virhe: {% endif %}{{ case.title }}{% endblock %}
+{% block content %}
+{% if saved %}
+  <p class="notice notice-success" role="status">Tallennettu.</p>
+{% endif %}
+{% if error %}
+  <p class="notice notice-error" role="alert" tabindex="-1" autofocus>{{ error }}</p>
+{% endif %}
+
+<p><a href="/yhtiot/{{ ctx.company_id }}">← Takaisin asioihin</a></p>
+<h1>{{ case.title }}</h1>
+
+{# Lisätietopyyntö ilmoittajalle: näkyy ensimmäisenä. #}
+{% if info_request and can_provide_info %}
+  <section class="notice notice-draft" aria-labelledby="lisatiedot">
+    <h2 id="lisatiedot">{{ info_request.author_name }} pyytää lisätietoja</h2>
+    <blockquote class="prewrap">{{ info_request.body }}</blockquote>
+    <p class="muted">Pyydetty {{ info_request.created_at | fi_datetime }}</p>
+    <form method="post" action="/yhtiot/{{ ctx.company_id }}/asiat/{{ case.id }}/vastaus" enctype="multipart/form-data" novalidate>
+      <input type="hidden" name="expected_version" value="{{ case.version }}">
+      <div class="field">
+        <label for="answer">Vastauksesi</label>
+        <textarea id="answer" name="answer" rows="5" maxlength="5000" required></textarea>
+      </div>
+      {% if case.case_type == "damage" %}
+      <div class="field">
+        <label for="answer-photos">Lisää kuvia (vapaaehtoinen)</label>
+        <input id="answer-photos" name="photos" type="file" accept="image/*" multiple>
+      </div>
+      {% endif %}
+      <button type="submit">Lähetä vastaus</button>
+    </form>
+  </section>
+{% elif info_request %}
+  <p class="notice">Lisätietoja on pyydetty ilmoittajalta {{ info_request.created_at | fi_datetime }}. Odotetaan vastausta.</p>
+{% endif %}
+
+<dl class="summary">
+  <dt>Tila</dt><dd><span class="status status-{{ case.status }}">{{ status_label }}</span></dd>
+  <dt>Tyyppi</dt><dd>{{ CASE_TYPE_LABELS_FI.get(case.case_type, case.case_type) }}</dd>
+  {% if case.case_type != "tender_request" %}
+    <dt>Tapahtumapäivä</dt><dd>{{ case.event_date | fi_date if case.event_date else 'Ei tiedossa' }}</dd>
+  {% endif %}
+  {% if apartment_label %}<dt>Huoneisto</dt><dd>{{ apartment_label }}</dd>{% endif %}
+  {% if details.location_text %}<dt>Paikka</dt><dd>{{ details.location_text }}</dd>{% endif %}
+  {% if case.case_type == "damage" %}
+    <dt>Jatkuuko vahinko?</dt><dd>{{ {"yes": "Kyllä", "no": "Ei", "unknown": "Ei tiedossa"}.get(details.ongoing, "Ei tiedossa") }}</dd>
+  {% endif %}
+  {% if case.case_type == "tender_request" %}
+    <dt>Työn laajuus</dt><dd class="prewrap">{{ details.scope }}</dd>
+    {% if details.schedule_start or details.schedule_end %}
+      <dt>Aikataulu</dt><dd>{{ details.schedule_start or "–" }} – {{ details.schedule_end or "–" }}</dd>
+    {% endif %}
+    {% if details.offers_due %}<dt>Tarjoukset viimeistään</dt><dd>{{ details.offers_due }}</dd>{% endif %}
+    {% if details.requirements %}<dt>Vaatimukset</dt><dd class="prewrap">{{ details.requirements }}</dd>{% endif %}
+    {% if details.budget_note and is_board %}<dt>Budjetti (vain hallitus)</dt><dd>{{ details.budget_note }}</dd>{% endif %}
+  {% endif %}
+  {% if case.description %}<dt>Kuvaus</dt><dd class="prewrap">{{ case.description }}</dd>{% endif %}
+  {% if case.history_note %}<dt>Huoneiston historiamerkintä</dt><dd>{{ case.history_note }}</dd>{% endif %}
+</dl>
+
+{% if photos or can_add_photos %}
+<section aria-labelledby="kuvat">
+  <h2 id="kuvat">Kuvat</h2>
+  {% if photos %}
+    <ul class="photo-grid">
+      {% for p in photos %}
+        <li><a href="/yhtiot/{{ ctx.company_id }}/asiat/{{ case.id }}/kuvat/{{ p.id }}">
+          <img src="/yhtiot/{{ ctx.company_id }}/asiat/{{ case.id }}/kuvat/{{ p.id }}" alt="Kuva {{ loop.index }}: {{ p.filename }}"
+            width="{{ p.width }}" height="{{ p.height }}" loading="lazy"></a></li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p class="muted">Ei kuvia.</p>
+  {% endif %}
+  {% if can_add_photos and photos | length < 10 %}
+    <form method="post" action="/yhtiot/{{ ctx.company_id }}/asiat/{{ case.id }}/kuvat" enctype="multipart/form-data">
+      <label for="more-photos">Lisää kuvia</label>
+      <input id="more-photos" name="photos" type="file" accept="image/*" multiple>
+      <button type="submit" class="button-secondary">Tallenna kuvat</button>
+    </form>
+  {% endif %}
+</section>
+{% endif %}
+
+{% if tender %}{% include "_tender_section.html" %}{% endif %}
+
+{% if ctx.is_manager and case.apartment_id %}
+  <details>
+    <summary>Kirjoita huoneiston historiamerkintä</summary>
+    <form method="post" action="/yhtiot/{{ ctx.company_id }}/asiat/{{ case.id }}/historiamerkinta">
+      <input type="hidden" name="expected_version" value="{{ case.version }}">
+      <div class="field">
+        <label for="history_note">Merkintä huoneiston myöhemmille asukkaille</label>
+        <p class="hint" id="history_note-ohje">Esimerkiksi ”Kylpyhuoneen vedeneristys uusittu”. Älä kirjoita nimiä tai muita henkilötietoja.</p>
+        <textarea id="history_note" name="history_note" rows="3" maxlength="500"
+          aria-describedby="history_note-ohje">{{ case.history_note or '' }}</textarea>
+      </div>
+      <button type="submit">Tallenna merkintä</button>
+    </form>
+  </details>
+{% endif %}
+
+<h2>Seuraavat vaiheet</h2>
+{% if can_request_info %}
+  <details>
+    <summary>Pyydä lisätietoja ilmoittajalta</summary>
+    <form method="post" action="/yhtiot/{{ ctx.company_id }}/asiat/{{ case.id }}/lisatietopyynto" novalidate>
+      <input type="hidden" name="expected_version" value="{{ case.version }}">
+      <div class="field">
+        <label for="question">Mitä lisätietoja tarvitset?</label>
+        <p class="hint" id="question-ohje">Ilmoittaja näkee tämän tekstin sellaisenaan. Esimerkiksi ”Lisää kuva kaapin alta ja kerro, milloin vuoto alkoi”.</p>
+        <textarea id="question" name="question" rows="4" maxlength="5000" required aria-describedby="question-ohje"></textarea>
+      </div>
+      <button type="submit">Lähetä lisätietopyyntö</button>
+    </form>
+  </details>
+{% endif %}
+{% if actions %}
+  <ul class="actions">
+    {% for value, label in actions %}
+      <li>
+        <form method="post" action="/yhtiot/{{ ctx.company_id }}/asiat/{{ case.id }}/toiminnot">
+          <input type="hidden" name="action" value="{{ value }}">
+          <input type="hidden" name="expected_version" value="{{ case.version }}">
+          <button type="submit">{{ label }}</button>
+        </form>
+      </li>
+    {% endfor %}
+  </ul>
+{% elif not can_request_info and not can_provide_info %}
+  <p>Sinulla ei ole tässä vaiheessa tehtäviä tähän asiaan.</p>
+{% endif %}
+
+<section aria-labelledby="keskustelu">
+  <h2 id="keskustelu">Keskustelu</h2>
+  {% if messages %}
+    <ol class="timeline">
+      {% for m in messages %}
+        <li class="timeline-{{ m.kind }}">
+          <p><strong>{{ m.author_name }}</strong>
+            {% if m.kind == "info_request" %}pyysi lisätietoja{% elif m.kind == "info_response" %}vastasi{% else %}kirjoitti{% endif %}
+            <span class="muted">{{ m.created_at | fi_datetime }}</span></p>
+          <p class="prewrap">{{ m.body }}</p>
+        </li>
+      {% endfor %}
+    </ol>
+  {% else %}
+    <p class="muted">Ei vielä viestejä.</p>
+  {% endif %}
+  <form method="post" action="/yhtiot/{{ ctx.company_id }}/asiat/{{ case.id }}/kommentti" novalidate>
+    <label for="comment">Kirjoita kommentti</label>
+    <textarea id="comment" name="body" rows="3" maxlength="5000"></textarea>
+    <button type="submit" class="button-secondary">Lähetä kommentti</button>
+  </form>
+</section>
+{% endblock %}

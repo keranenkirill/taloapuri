@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block title %}Päätä käyttöoikeus{% endblock %}
+{% block content %}
+<h1>Päätetäänkö henkilön {{ member.display_name }} käyttöoikeus?</h1>
+<ul>
+  <li>Henkilö ei pääse enää tämän taloyhtiön tietoihin.</li>
+  <li>Hänen tekemänsä asiat ja huoneiston historia säilyvät.</li>
+  <li>Huoneiston seuraava asukas näkee huoneiston historian ilman henkilön tietoja.</li>
+</ul>
+<form method="post" action="/yhtiot/{{ ctx.company_id }}/asukkaat/{{ member.membership_id }}/paata">
+  <button type="submit">Kyllä, päätä käyttöoikeus</button>
+  <a class="button-secondary" href="/yhtiot/{{ ctx.company_id }}/asukkaat">Peruuta</a>
+</form>
+{% endblock %}

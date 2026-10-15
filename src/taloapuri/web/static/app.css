@@ -1,0 +1,220 @@
+/* Saavutettavuus: suuri perusfontti, näkyvä fokus, 44 px kosketuskohteet, kontrastit ≥ 4.5:1. */
+/* Teemat: oletuksena laitteen asetus; käyttäjä voi pakottaa vaalean tai tumman (data-theme). */
+:root {
+  color-scheme: light;
+  --text: #1a1a1a;
+  --muted: #4a4a4a;
+  --bg: #ffffff;
+  --surface: #ffffff;
+  --link: #0b4f9c;
+  --primary: #0b4f9c;
+  --primary-text: #ffffff;
+  --focus: #ffbf47;
+  --error: #b00020;
+  --success: #1e6b2e;
+  --border: #6b6b6b;
+  --info-bg: #eef4fb;
+  --urgent-bg: #fdecee;
+  --success-bg: #e8f3ea;
+  --draft-bg: #fff6e0;
+  --draft-border: #8a5a00;
+}
+
+/* Tumma teema: kontrastit ≥ 4.5:1 tekstille ja ≥ 3:1 reunoille taustaa #121417 vasten. */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+    --text: #ececec;
+    --muted: #b8b8b8;
+    --bg: #121417;
+    --surface: #1b1e23;
+    --link: #8ab4ff;
+    --primary: #8ab4ff;
+    --primary-text: #0b1220;
+    --error: #ff8a8a;
+    --success: #7fd38f;
+    --border: #9a9a9a;
+    --info-bg: #17263a;
+    --urgent-bg: #3a1a1e;
+    --success-bg: #16301c;
+    --draft-bg: #33280f;
+    --draft-border: #e0b54a;
+  }
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --text: #ececec;
+  --muted: #b8b8b8;
+  --bg: #121417;
+  --surface: #1b1e23;
+  --link: #8ab4ff;
+  --primary: #8ab4ff;
+  --primary-text: #0b1220;
+  --error: #ff8a8a;
+  --success: #7fd38f;
+  --border: #9a9a9a;
+  --info-bg: #17263a;
+  --urgent-bg: #3a1a1e;
+  --success-bg: #16301c;
+  --draft-bg: #33280f;
+  --draft-border: #e0b54a;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html { font-size: 112.5%; }
+
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  line-height: 1.6;
+  color: var(--text);
+  background: var(--bg);
+}
+
+.wrap { max-width: 50rem; margin: 0 auto; padding: 0 1rem; }
+
+a { color: var(--link); text-underline-offset: 0.15em; }
+
+:focus-visible {
+  outline: 3px solid var(--text);
+  outline-offset: 2px;
+  box-shadow: 0 0 0 6px var(--focus);
+}
+
+.skip-link {
+  position: absolute;
+  left: -9999px;
+}
+.skip-link:focus { left: 1rem; top: 1rem; background: var(--bg); padding: 0.5rem 1rem; z-index: 10; }
+
+.visually-hidden {
+  position: absolute !important; width: 1px; height: 1px; overflow: hidden;
+  clip: rect(0 0 0 0); white-space: nowrap;
+}
+
+.site-header { border-bottom: 2px solid var(--border); padding: 0.75rem 0; margin-bottom: 1.5rem; }
+.brand { font-weight: 700; font-size: 1.3rem; text-decoration: none; }
+.current-company { margin: 0.25rem 0 0; }
+.site-footer { border-top: 1px solid var(--border); margin-top: 3rem; padding: 1rem 0; color: var(--muted); }
+
+.lead { font-size: 1.15rem; }
+.muted { color: var(--muted); }
+.prewrap { white-space: pre-wrap; }
+
+button, .button, .button-secondary {
+  display: inline-flex; align-items: center; justify-content: center;
+  min-height: 44px; min-width: 44px; padding: 0.5rem 1.25rem;
+  font: inherit; font-weight: 600; border-radius: 4px; cursor: pointer; text-decoration: none;
+}
+button, .button { background: var(--primary); color: var(--primary-text); border: 2px solid var(--primary); }
+.button-secondary { background: var(--bg); color: var(--primary); border: 2px solid var(--primary); }
+
+label, legend { display: block; font-weight: 600; }
+.hint { margin: 0.25rem 0; color: var(--muted); }
+input[type="text"], input[type="email"], input[type="date"], select, textarea {
+  display: block; width: 100%; max-width: 30rem; min-height: 44px;
+  font: inherit; padding: 0.5rem; border: 2px solid var(--border); border-radius: 4px;
+  background: var(--surface); color: var(--text);
+}
+.checkbox { display: flex; align-items: center; gap: 0.5rem; margin-top: 0.75rem; }
+.checkbox input { width: 28px; height: 28px; }
+.checkbox label { font-weight: 400; }
+.field, fieldset { margin: 0 0 1.5rem; border: 0; padding: 0; }
+.field-error { border-left: 4px solid var(--error); padding-left: 0.75rem; }
+.error-message { color: var(--error); font-weight: 600; margin: 0.25rem 0; }
+[aria-invalid="true"] { border-color: var(--error); }
+
+.error-summary { border: 3px solid var(--error); padding: 1rem; margin-bottom: 1.5rem; }
+.error-summary h2 { margin-top: 0; }
+
+.notice { border-left: 6px solid var(--primary); background: var(--info-bg); padding: 0.75rem 1rem; margin: 1rem 0; }
+.notice-urgent { border-color: var(--error); background: var(--urgent-bg); }
+.notice-error { border-color: var(--error); background: var(--urgent-bg); }
+.notice-success { border-color: var(--success); background: var(--success-bg); }
+.notice-draft { border-color: var(--draft-border); background: var(--draft-bg); }
+
+.theme-form fieldset { margin: 1rem 0 0; }
+.radio { display: flex; align-items: center; gap: 0.5rem; margin: 0.25rem 0; }
+.radio input { width: 24px; height: 24px; }
+.radio label { font-weight: 400; }
+.ai-label { display: inline-block; font-weight: 700; border: 2px solid var(--border); border-radius: 4px; padding: 0 0.5rem; }
+details summary { cursor: pointer; font-weight: 600; min-height: 44px; display: flex; align-items: center; }
+blockquote { margin: 0.5rem 0; padding-left: 1rem; border-left: 4px solid var(--border); }
+
+.action-cards, .company-list, .actions { list-style: none; padding: 0; display: grid; gap: 1rem; }
+@media (min-width: 40rem) { .action-cards { grid-template-columns: repeat(3, 1fr); } }
+.card-link {
+  display: block; min-height: 44px; padding: 1rem; border: 2px solid var(--border);
+  border-radius: 6px; text-decoration: none; color: var(--text);
+}
+.card-link:hover { border-color: var(--primary); }
+.card-title { display: block; font-weight: 700; color: var(--link); font-size: 1.1rem; }
+.card-help { display: block; color: var(--muted); }
+
+.steps li { margin-bottom: 0.75rem; }
+
+.case-table { width: 100%; border-collapse: collapse; }
+.case-table th, .case-table td { text-align: left; padding: 0.5rem; border-bottom: 1px solid var(--border); }
+
+.summary dt { font-weight: 700; margin-top: 0.75rem; }
+.summary dd { margin: 0; }
+
+/* Tila näytetään aina tekstinä; väri on vain lisävihje. */
+.status { display: inline-block; padding: 0.1rem 0.5rem; border: 2px solid var(--border); border-radius: 4px; font-weight: 600; }
+
+/* Yläpalkki: vasemmalla palvelu ja yhtiö, oikealla kirjautunut käyttäjä ja asetukset. */
+.header-row { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 0.5rem 1rem; }
+.header-right { display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem 1rem; margin-left: auto; }
+.current-user { margin: 0; }
+.settings-button { white-space: nowrap; }
+.event-list { list-style: none; padding: 0; }
+.event-list li { border-left: 4px solid var(--border); padding: 0.5rem 0.75rem; margin-bottom: 0.75rem; }
+td form { display: inline-block; margin: 0.25rem 0.25rem 0.25rem 0; }
+
+.photo-grid { list-style: none; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(10rem, 1fr)); gap: 0.75rem; }
+.photo-grid img { width: 100%; height: 10rem; object-fit: cover; border: 2px solid var(--border); border-radius: 4px; }
+.timeline { list-style: none; padding: 0; }
+.timeline li { border-left: 4px solid var(--border); padding: 0.25rem 0.75rem; margin-bottom: 0.75rem; }
+.timeline .timeline-info_request { border-color: var(--draft-border); }
+.timeline .timeline-info_response { border-color: var(--success); }
+.event-list .event-urgent { border-color: var(--draft-border); background: var(--draft-bg); }
+input[type="file"] { display: block; min-height: 44px; margin: 0.25rem 0 0.75rem; }
+.badge { display: inline-block; min-width: 1.5em; padding: 0 0.4em; border-radius: 1em; background: var(--error); color: var(--bg); font-weight: 700; text-align: center; }
+
+/* Tekoälyn etenemispaneeli ja latausanimaatio. */
+.ai-progress { border: 2px solid var(--primary); border-radius: 6px; padding: 0.75rem 1rem; margin: 1rem 0; background: var(--info-bg); }
+.ai-progress-head { display: flex; align-items: center; gap: 0.75rem; font-weight: 600; }
+.ai-elapsed { margin-left: auto; font-weight: 400; }
+.ai-stream { min-height: 1.6em; margin: 0.5rem 0 0; }
+.ai-progress.is-writing .ai-stream::after { content: "▍"; color: var(--primary); animation: ai-blink 1s steps(1) infinite; }
+.ai-dots { display: inline-flex; gap: 0.3rem; }
+.ai-dots span { width: 0.6rem; height: 0.6rem; border-radius: 50%; background: var(--primary); opacity: 0.3; }
+.ai-progress.is-working .ai-dots span { animation: ai-bounce 1.2s ease-in-out infinite; }
+.ai-progress.is-working .ai-dots span:nth-child(2) { animation-delay: 0.15s; }
+.ai-progress.is-working .ai-dots span:nth-child(3) { animation-delay: 0.3s; }
+.ai-progress:not(.is-working) .ai-dots { display: none; }
+@keyframes ai-bounce { 0%, 80%, 100% { transform: translateY(0); opacity: 0.3; } 40% { transform: translateY(-0.35rem); opacity: 1; } }
+@keyframes ai-blink { 50% { opacity: 0; } }
+button:disabled { opacity: 0.6; cursor: progress; }
+/* Liikeherkille: ei animaatiota, tila kerrotaan tekstinä. */
+@media (prefers-reduced-motion: reduce) {
+  .ai-progress.is-working .ai-dots span, .ai-progress.is-writing .ai-stream::after { animation: none; opacity: 1; }
+}
+
+/* Lukemattomat: teksti + lihavointi, väri vain lisävihje. */
+.event-list .event-unread { border-color: var(--primary); }
+.unread-label { border-color: var(--primary); color: var(--primary); }
+tr.unread td { background: var(--info-bg); }
+.badge[hidden] { display: none; }
+.live-toast { display: flex; align-items: center; gap: 0.75rem; margin-top: 0.75rem; padding: 0.5rem 1rem;
+  border: 2px solid var(--primary); border-radius: 6px; background: var(--info-bg); font-weight: 600; }
+.live-toast[hidden] { display: none; }
+
+/* UKK */
+.faq-item { border: 2px solid var(--border); border-radius: 6px; margin: 0.5rem 0; padding: 0 1rem; }
+.faq-item[open] { border-color: var(--primary); }
+.faq-answer { padding: 0 0 0.75rem; }
+.law-quote { margin: 0.75rem 0; padding: 0.5rem 1rem; border-left: 4px solid var(--primary); background: var(--info-bg); }
+.law-quote blockquote { border-left: 0; padding-left: 0; }

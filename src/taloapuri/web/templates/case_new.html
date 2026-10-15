@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+{% block title %}{% if errors %}Virhe: {% endif %}{{ CASE_TYPE_LABELS_FI[case_type] }}{% endblock %}
+{% block content %}
+<h1>{{ CASE_TYPE_LABELS_FI[case_type] }}</h1>
+<p>Vastaa alla oleviin kysymyksiin. Voit muokata tietoja myöhemmin.</p>
+
+{% include "_error_summary.html" %}
+
+<form method="post" action="/yhtiot/{{ ctx.company_id }}/asiat" novalidate>
+  <input type="hidden" name="case_type" value="{{ case_type }}">
+
+  <div class="field{% if errors.title %} field-error{% endif %}">
+    <label for="title">Mitä on tapahtunut? (lyhyt otsikko)</label>
+    <p class="hint" id="title-ohje">Esimerkiksi ”Astianpesukone vuotaa keittiössä”.</p>
+    {% if errors.title %}<p class="error-message" id="title-virhe">{{ errors.title }}</p>{% endif %}
+    <input id="title" name="title" type="text" maxlength="200" required
+      value="{{ values.title or '' }}"
+      aria-describedby="title-ohje{% if errors.title %} title-virhe{% endif %}"
+      {% if errors.title %}aria-invalid="true"{% endif %}>
+  </div>
+
+  <fieldset class="field{% if errors.event_date %} field-error{% endif %}">
+    <legend>Milloin tämä tapahtui tai huomattiin?</legend>
+    <p class="hint" id="event_date-ohje">Päivämäärä vaikuttaa siihen, mitä sääntöjä sovelletaan.</p>
+    {% if errors.event_date %}<p class="error-message" id="event_date-virhe">{{ errors.event_date }}</p>{% endif %}
+    <label for="event_date">Päivämäärä</label>
+    <input id="event_date" name="event_date" type="date" value="{{ values.event_date or '' }}"
+      aria-describedby="event_date-ohje{% if errors.event_date %} event_date-virhe{% endif %}"
+      {% if errors.event_date %}aria-invalid="true"{% endif %}>
+    <div class="checkbox">
+      <input id="event_date_unknown" name="event_date_unknown" type="checkbox" value="1"
+        {% if values.event_date_unknown %}checked{% endif %}>
+      <label for="event_date_unknown">En tiedä</label>
+    </div>
+  </fieldset>
+
+  {% if apartments %}
+  <div class="field{% if errors.apartment_id %} field-error{% endif %}">
+    <label for="apartment_id">Mitä huoneistoa asia koskee? (vapaaehtoinen)</label>
+    <p class="hint" id="apartment_id-ohje">Huoneiston myöhemmät asukkaat näkevät vain asian tyypin, tilan ja päivämäärän – eivät nimeäsi eivätkä kuvaustasi.</p>
+    {% if errors.apartment_id %}<p class="error-message" id="apartment_id-virhe">{{ errors.apartment_id }}</p>{% endif %}
+    <select id="apartment_id" name="apartment_id"
+      aria-describedby="apartment_id-ohje{% if errors.apartment_id %} apartment_id-virhe{% endif %}"
+      {% if errors.apartment_id %}aria-invalid="true"{% endif %}>
+      <option value="">Yhteiset tilat tai ei huoneistoa</option>
+      {% for a in apartments %}
+        <option value="{{ a.id }}" {% if values.apartment_id == a.id|string %}selected{% endif %}>{{ a.label }}</option>
+      {% endfor %}
+    </select>
+  </div>
+  {% endif %}
+
+  <div class="field">
+    <label for="description">Kerro omin sanoin (vapaaehtoinen)</label>
+    <p class="hint" id="description-ohje">Älä kirjoita tähän terveystietoja tai muita arkaluonteisia tietoja.</p>
+    <textarea id="description" name="description" rows="6" maxlength="10000"
+      aria-describedby="description-ohje">{{ values.description or '' }}</textarea>
+  </div>
+
+  <button type="submit">Tallenna luonnos</button>
+  <a class="button-secondary" href="/yhtiot/{{ ctx.company_id }}">Peruuta</a>
+</form>
+{% endblock %}

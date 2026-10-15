@@ -1,0 +1,38 @@
+{# Yksi UKK-kysymys. Odottaa muuttujaa `view` (web/faq_routes.EntryView). #}
+{% set e = view.entry %}
+<details class="faq-item"{% if e.first_aid %} open{% endif %}>
+  <summary>{{ e.question }}</summary>
+  <div class="faq-answer">
+    {% if e.first_aid %}
+      {% include "_first_aid_steps.html" %}
+      <p><a href="/ensiohjeet/vesivahinko">Vesivahingon ensiohjeet omalla sivullaan</a></p>
+    {% endif %}
+    {% for paragraph in e.paragraphs %}<p>{{ paragraph }}</p>{% endfor %}
+    {% if e.refs %}
+      {% if view.login_needed %}
+        <p class="muted">Kirjaudu sisään nähdäksesi lain sanamuodon ja lähteet.</p>
+      {% else %}
+        {% if view.unverified %}
+          <p class="notice notice-draft">Lainkohtaa ei voitu hakea tallennetusta laista, joten tämä
+            vastaus on <strong>ei vahvistettu lähteestä</strong>. Tarkista asia isännöitsijältä.</p>
+        {% endif %}
+        {% for q in view.quotes %}
+          {% if q.quote %}
+            <figure class="law-quote">
+              <figcaption><strong>Lain sanamuoto: {{ q.quote.label }}{% if q.quote.heading %} – {{ q.quote.heading }}{% endif %}</strong>
+                <span class="muted">{% if q.quote.consolidated_date %}(ajantasaistettu {{ q.quote.consolidated_date | fi_date }}){% endif %}</span></figcaption>
+              {% for number, quote_text in q.quote.subsections %}
+                <blockquote>{% if number %}<span class="muted">{{ number }} mom.</span> {% endif %}{{ quote_text }}</blockquote>
+              {% endfor %}
+              <p><a href="{{ q.quote.public_url }}" rel="noopener noreferrer">Avaa laki Finlexissä<span class="visually-hidden">: {{ q.quote.label }}</span></a></p>
+              {% if q.stale %}
+                <p class="notice notice-draft">Laki on päivittynyt sen jälkeen, kun yhteenveto kirjoitettiin.
+                  Luotettava on lain sanamuoto; yhteenveto voi olla vanhentunut.</p>
+              {% endif %}
+            </figure>
+          {% endif %}
+        {% endfor %}
+      {% endif %}
+    {% endif %}
+  </div>
+</details>

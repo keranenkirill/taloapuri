@@ -1,0 +1,105 @@
+{% extends "base.html" %}
+{% block title %}{% if error %}Virhe: {% endif %}Kysy tekoälyltä{% endblock %}
+{% block content %}
+<p><a href="/yhtiot/{{ ctx.company_id }}">← Takaisin etusivulle</a></p>
+<h1>Kysy tekoälyltä (kokeilu)</h1>
+
+<div class="notice">
+  <p><strong>Näin tämä toimii:</strong> tekoäly etsii vastauksen Suomen lainsäädännöstä (Finlex) ja niistä
+    hallituksen pöytäkirjoista, jotka sinulla on oikeus nähdä, ja kertoo, mihin vastaus perustuu. Se voi erehtyä, eikä se korvaa isännöitsijän tai juristin arviota.
+    Yhtiöjärjestys voi määrätä asiasta toisin.</p>
+</div>
+
+{% if laws %}
+  <p class="hint">Lähteet: {% for l in laws %}<strong>{{ l.short_title }}</strong>{% if l.consolidated_date %} (ajantasaistettu {{ l.consolidated_date | fi_date }}){% endif %}{% if not loop.last %}, {% endif %}{% endfor %}
+    · <a href="/yhtiot/{{ ctx.company_id }}/lait">Lue lisää lähteistä</a></p>
+{% endif %}
+
+{% if not ai_available %}
+  <p class="notice notice-draft" role="status">Tekoäly ei ole tällä hetkellä käytössä. Voit hoitaa asian
+    <a href="/yhtiot/{{ ctx.company_id }}">ohjatuilla toiminnoilla</a>.</p>
+{% endif %}
+
+{% for m in messages %}
+  {% if m.role == "user" %}
+    <section class="chat-question" aria-label="Kysymyksesi">
+      <h2 class="visually-hidden">Kysymyksesi</h2>
+      <p class="prewrap"><strong>Kysyit:</strong> {{ m.text }}</p>
+    </section>
+  {% else %}
+    {% set mi = loop.index %}
+    <section class="chat-answer" {% if loop.last %}id="viimeisin" tabindex="-1"{% endif %}
+      aria-labelledby="vastaus-{{ loop.index }}">
+      <h2 id="vastaus-{{ loop.index }}">Vastaus <span class="ai-label">Tekoälyn tuottama</span></h2>
+      {% if m.status == "ok" %}
+        <p class="prewrap">{% for seg in m.segments %}{{ seg.text }}{% for n in seg.citations %}<sup><a href="#lahde-{{ mi }}-{{ n }}" id="viite-{{ mi }}-{{ n }}">[<span class="visually-hidden">lähde </span>{{ n }}]</a></sup>{% endfor %}{% endfor %}</p>
+        {% if m.escalate %}
+          <p class="notice notice-urgent"><strong>Suosittelemme asiantuntijan arviota.</strong>
+            Ota yhteyttä isännöitsijään ennen kuin teet päätöksiä.</p>
+        {% endif %}
+        {% if m.citations %}
+          <details>
+            <summary>Mihin tämä perustuu?</summary>
+            {% for kind, heading in [("law", "Laki"), ("minutes", "Yhtiön pöytäkirjat")] %}
+              {% set group = m.citations | selectattr("kind", "equalto", kind) | list %}
+              {% if group %}
+                <h3>{{ heading }}</h3>
+                <ol class="sources">
+                  {% for c in group %}
+                    <li id="lahde-{{ mi }}-{{ c.ord }}" value="{{ c.ord }}">
+                      <strong>{{ c.label }}</strong>
+                      {% if c.verified %}<span>✓ lainaus tarkistettu lähteestä</span>
+                      {% else %}<span>⚠ lainausta ei voitu vahvistaa – tarkista itse</span>{% endif %}
+                      <blockquote>{{ c.cited_text }}</blockquote>
+                      {% if c.public_url %}<a href="{{ c.public_url }}" rel="noopener noreferrer">{% if kind == "law" %}Avaa laki Finlexissä{% else %}Avaa pöytäkirja (PDF){% endif %}</a>{% endif %}
+                    </li>
+                  {% endfor %}
+                </ol>
+              {% endif %}
+            {% endfor %}
+            <p class="hint">Lähde: Finlex, ajantasainen lainsäädäntö (oikeusministeriö). Ajantasainen
+              teksti ei ole virallinen julkaisu.</p>
+          </details>
+        {% endif %}
+      {% else %}
+        <p>{{ m.text }}</p>
+      {% endif %}
+    </section>
+  {% endif %}
+{% endfor %}
+
+{% if error %}
+  <div class="error-summary" role="alert" tabindex="-1" autofocus>
+    <h2>Korjaa kysymys</h2>
+    <p><a href="#question">{{ error }}</a></p>
+  </div>
+{% endif %}
+
+{% with panel_id = "ai-chat" %}{% include "_ai_progress.html" %}{% endwith %}
+
+<form method="post" action="/yhtiot/{{ ctx.company_id }}/kysy" novalidate
+  data-ai-stream="/yhtiot/{{ ctx.company_id }}/kysy/stream" data-ai-panel="ai-chat">
+  {% if thread %}<input type="hidden" name="thread_id" value="{{ thread.id }}">{% endif %}
+  <div class="field{% if error %} field-error{% endif %}">
+    <label for="question">{% if thread %}Kysy lisää{% else %}Kysymyksesi{% endif %}</label>
+    <p class="hint" id="question-ohje">Esimerkiksi ”Kuka vastaa kylpyhuoneen vedeneristyksestä?”
+      Älä kirjoita nimiä, terveystietoja tai muita henkilötietoja.</p>
+    <textarea id="question" name="question" rows="4" maxlength="1000"
+      aria-describedby="question-ohje" {% if error %}aria-invalid="true"{% endif %}>{{ question }}</textarea>
+  </div>
+  <button type="submit">Kysy</button>
+  {% if thread %}<a class="button-secondary" href="/yhtiot/{{ ctx.company_id }}/kysy">Uusi keskustelu</a>{% endif %}
+</form>
+
+{% if threads %}
+  <h2>Aiemmat kysymyksesi</h2>
+  <ul>
+    {% for t in threads %}
+      <li><a href="/yhtiot/{{ ctx.company_id }}/kysy/{{ t.id }}"
+        {% if thread and t.id == thread.id %}aria-current="page"{% endif %}>{{ t.title }}</a>
+        <span class="muted">{{ t.created_at | fi_date_dt }}</span></li>
+    {% endfor %}
+  </ul>
+  <p class="hint">Vain sinä näet omat kysymyksesi.</p>
+{% endif %}
+{% endblock %}

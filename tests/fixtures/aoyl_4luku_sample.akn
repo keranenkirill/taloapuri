@@ -1,0 +1,335 @@
+<?xml version='1.0' encoding='utf-8'?>
+<akomaNtoso xmlns="http://docs.oasis-open.org/legaldocml/ns/akn/3.0" xmlns:finlex="http://data.finlex.fi/schema/finlex">
+    <act contains="multipleVersions" name="main">
+        <meta>
+            <identification source="#organization_fi.finlex">
+                <FRBRExpression>
+                    <FRBRthis value="/akn/fi/act/statute-consolidated/2009/1599/fin@20260535/!main" />
+                    <FRBRuri value="/akn/fi/act/statute-consolidated/2009/1599/fin@20260535" />
+                    <FRBRalias name="eli" value="http://data.finlex.fi/eli/sd/2009/1599/ajantasa/2026-06-16/fin" />
+                    <FRBRdate date="2009-12-22" name="dateIssued" />
+                    <FRBRdate date="2026-06-16" name="dateConsolidated" />
+                    <FRBRauthor as="#role_author" href="#organization_fi.finlex" />
+                    <FRBRversionNumber value="20260535" />
+                    <FRBRlanguage language="fin" />
+                </FRBRExpression>
+                </identification>
+            </meta>
+        <preface>
+            <p>
+                <docNumber>1599/2009</docNumber>
+                <docTitle>Asunto-osakeyhtiölaki</docTitle>
+            </p>
+        </preface>
+        <body>
+            <hcontainer finlex:outline="Säädöksen teksti" name="statuteProvisionsWrapper">
+                <chapter eId="part_2__chp_4">
+                        <num>4 luku</num>
+                        <heading eId="part_2__chp_4__heading">Kunnossapito</heading>
+                        <crossHeading eId="part_2__chp_4__crossHeading">Yleiset säännökset</crossHeading>
+                        <section eId="part_2__chp_4__sec_1">
+                            <num>1 §</num>
+                            <heading eId="part_2__chp_4__sec_1__heading">Kunnossapitovastuun jako ja kunnossapito-oikeus</heading>
+                            <subsection eId="part_2__chp_4__sec_1__subsec_1">
+                                <content>
+                                    <p>Yhtiön rakennuksen ja muiden tilojen kunnossapitovastuu jaetaan osakkeenomistajien ja yhtiön kesken 2 ja 3 §:n säännösten mukaisesti, jollei yhtiöjärjestyksessä määrätä toisin. </p>
+                                </content>
+                            </subsection>
+                            <subsection eId="part_2__chp_4__sec_1__subsec_2">
+                                <content>
+                                    <p>Yhtiökokous voi kuitenkin päättää osakkeenomistajalle kuuluvan kunnossapitotyön suorittamisesta yhtiön kustannuksella, jos työ liittyy yhtiön kunnossapito- tai uudistustyöhön tai työ on yhtiön kannalta muuten taloudellisesti tarkoituksenmukainen eikä se loukkaa osakkeenomistajien yhdenvertaisuutta. Yhtiön oikeudesta teettää osakkeenomistajan vastuulla oleva kunnossapitotyö ja osakkeenomistajan oikeudesta teettää yhtiön vastuulla oleva kunnossapitotyö säädetään lisäksi 4 ja 5 §:ssä.</p>
+                                </content>
+                            </subsection>
+                            <subsection eId="part_2__chp_4__sec_1__subsec_3">
+                                <content>
+                                    <p>Kunnossapitotyön suorittavan yhtiön tai osakkeenomistajan on huolehdittava siitä, että työssä noudatetaan hyvää rakennustapaa. </p>
+                                </content>
+                            </subsection>
+                            <subsection eId="part_2__chp_4__sec_1__subsec_4">
+                                <content>
+                                    <p>Vahingonkorvausvastuusta säädetään 24 luvussa.</p>
+                                </content>
+                            </subsection>
+                        </section>
+                        <section eId="part_2__chp_4__sec_2">
+                            <num>2 §</num>
+                            <heading eId="part_2__chp_4__sec_2__heading">Yhtiön kunnossapitovastuu</heading>
+                            <subsection eId="part_2__chp_4__sec_2__subsec_1">
+                                <content>
+                                    <p>Yhtiö vastaa kunnossapidosta siltä osin kuin se ei kuulu osakkeenomistajalle.</p>
+                                </content>
+                            </subsection>
+                            <subsection eId="part_2__chp_4__sec_2__subsec_2v20260535" finlex:originalVersion="@20260535" finlex:originalVersionLabel="16.6.2026/535">
+                                <content>
+                                    <p>Yhtiön on pidettävä kunnossa osakehuoneistojen rakenteet, eristeet ja ikkunat. Yhtiö on lisäksi velvollinen pitämään kunnossa lämmitys-, sähkö-, tiedonsiirto-, kaasu-, vesi-, viemäri-, ilmanvaihto- ja muut sen kaltaiset perusjärjestelmät. Yhtiö ei kuitenkaan vastaa osakehuoneistoissa olevista altaista. Yhtiön on korjattava ne osakehuoneistojen sisäosat, jotka vahingoittuvat rakenteen tai yhtiön kunnossapitovastuulle kuuluvan rakennuksen muun osan vian tai sen korjaamisen vuoksi.</p>
+                                </content>
+                            </subsection>
+                            <subsection eId="part_2__chp_4__sec_2__subsec_3">
+                                <content>
+                                    <p>Edellä 2 momentissa tarkoitettu vastuu koskee sellaisia rakenteita, eristeitä ja perusjärjestelmiä, jotka yhtiö on toteuttanut tai hyväksynyt vastuulleen, ja huoneistojen sisäosien korjaamista ajankohdan perustasoon yhtiössä. Yhtiö vastaa myös sellaisesta osakkeenomistajan tekemästä tai teettämästä asennuksesta, joka rinnastuu yhtiön toteuttamaan tai vastuulleen hyväksymään toimenpiteeseen ja jonka toteuttamista yhtiö on voinut valvoa siten kuin tässä laissa säädetään.</p>
+                                </content>
+                            </subsection>
+                            <subsection eId="part_2__chp_4__sec_2__subsec_4">
+                                <content>
+                                    <p>Yhtiön on pidettävä kunnossa rakennuksen ulkopinta myös sellaisen parvekkeen kohdalla, joka on osakkeenomistajan hallinnassa 1 luvun 3 §:n mukaisesti.</p>
+                                </content>
+                            </subsection>
+                        </section>
+                        <section eId="part_2__chp_4__sec_3">
+                            <num>3 §</num>
+                            <heading eId="part_2__chp_4__sec_3__heading" finlex:originalVersion="@20260535" finlex:originalVersionLabel="16.6.2026/535">
+                                Osakkeenomistajan kunnossapitovastuu ja tietojenantovelvollisuus 
+                                <ref href="#entryIntoForce_20260535">(16.6.2026/535)</ref>
+                            </heading>
+                            <subsection eId="part_2__chp_4__sec_3__subsec_1">
+                                <content>
+                                    <p>Osakkeenomistajan on pidettävä kunnossa osakehuoneistonsa sisäosat.</p>
+                                </content>
+                            </subsection>
+                            <subsection eId="part_2__chp_4__sec_3__subsec_2">
+                                <content>
+                                    <p>Osakkeenomistajan on hoidettava osakehuoneistoansa huolellisesti ja toteutettava kunnossapitotyönsä siten, että yhtiön vastuulla olevat kiinteistön, rakennuksen tai huoneiston osat eivät rikkoudu. Osakkeenomistaja ei kuitenkaan ole vastuussa tavanomaisesta kulumisesta, joka aiheutuu tilojen käyttämisestä niiden käyttötarkoituksen mukaisesti.</p>
+                                </content>
+                            </subsection>
+                            <subsection eId="part_2__chp_4__sec_3__subsec_3v20260535" finlex:originalVersion="@20260535" finlex:originalVersionLabel="16.6.2026/535">
+                                <content>
+                                    <p>Osakkeenomistajan on hoidettava huolellisesti sellaista käytössään olevaa yhtiön tilaa tai aluetta, jonka hallintaoikeus ei perustu yhtiöjärjestykseen tai vuokrasopimukseen.</p>
+                                </content>
+                            </subsection>
+                            <subsection eId="part_2__chp_4__sec_3__subsec_4v20260535" finlex:originalVersion="@20260535" finlex:originalVersionLabel="16.6.2026/535">
+                                <content>
+                                    <p>Osakehuoneiston toisen käytettäväksi antaneen osakkeenomistajan on huolehdittava siitä, että hänellä on tarvittavat tiedot huoneiston käyttöoikeuden saaneesta. Osakkeenomistajan on yhtiön perustellusta pyynnöstä annettavat tiedot yhtiölle.</p>
+                                </content>
+                            </subsection>
+                        </section>
+                        <crossHeading eId="part_2__chp_4__crossHeading_2">Kunnossapitotyön teettäminen</crossHeading>
+                        <section eId="part_2__chp_4__sec_4">
+                            <num>4 §</num>
+                            <heading eId="part_2__chp_4__sec_4__heading" finlex:originalVersion="@20230280" finlex:originalVersionLabel="3.3.2023/280">
+                                Kunnossapitotyön teettäminen osakehuoneistossa sekä huoneiston ulkopuolisen osakkeenomistajan muutostyön osalta 
+                                <ref href="#entryIntoForce_20230280">(3.3.2023/280)</ref>
+                            </heading>
+                            <subsection eId="part_2__chp_4__sec_4__subsec_1">
+                                <content>
+                                    <p>Yhtiö voi teettää kunnossapitotyön osakkeenomistajan kustannuksella, jos osakkeenomistaja lyö laimin lakiin tai yhtiöjärjestykseen perustuvan kunnossapitovelvollisuutensa ja laiminlyönnistä voi aiheutua haittaa yhtiölle tai toiselle osakkeenomistajalle.</p>
+                                </content>
+                            </subsection>
+                            <subsection eId="part_2__chp_4__sec_4__subsec_2">
+                                <content>
+                                    <p>Osakkeenomistaja voi teettää osakehuoneistossaan yhtiön kustannuksella sellaisen yhtiön vastuulla olevan kiireellisen kunnossapitotyön, joka on tarpeen lisävahingon välttämiseksi. Lisäksi osakkeenomistaja voi teettää kunnossapitotyön, jonka tekemättä jättämisestä aiheutuu osakkeenomistajalle vähäistä suurempaa haittaa ja jonka suhteen yhtiö ei ole kirjallisen huomautuksen saatuaan viivytyksettä ryhtynyt riittäviin toimiin. Riittävyyttä arvioitaessa otetaan huomioon työn laatu, osakkaalle aiheutuva haitta ja muut olosuhteet.</p>
+                                </content>
+                            </subsection>
+                            <subsection eId="part_2__chp_4__sec_4__subsec_3">
+                                <content>
+                                    <p>Kunnossapitotyöstä vastuussa olevan yhtiön tai osakkeenomistajan on korvattava työn teettämisestä aiheutuneet tarpeelliset ja kohtuulliset kulut.</p>
+                                </content>
+                            </subsection>
+                        </section>
+                        <crossHeading eId="part_2__chp_4__crossHeading_3">Kunnossapitoa koskevat ilmoitukset ja valvonta</crossHeading>
+                        </chapter>
+                    </hcontainer>
+            <hcontainer finlex:outline="Esityöt ja allekirjoitukset" name="conclusions">
+                <hcontainer finlex:outline="Esityöt" name="preliminaryWork">
+                    <content>
+                        <p>
+                            <ref href="/akn/fi/doc/government-proposal/2009/24">HE 24/2009</ref>
+                        </p>
+                        <p>YmVM 10/2009</p>
+                        <p>EV 206/2009</p>
+                    </content>
+                </hcontainer>
+            </hcontainer>
+            <hcontainer name="amendmentEntryIntoForceAndApplianceProvisions">
+                <heading>Muutossäädösten voimaantulo ja soveltaminen</heading>
+                <hcontainer eId="entryIntoForce_20100547" name="entryIntoForce">
+                    <heading>11.6.2010/547:</heading>
+                    <content>
+                        <p>Tämä laki tulee voimaan 1 päivänä heinäkuuta 2010.</p>
+                        <p>
+                            <ref href="/akn/fi/doc/government-proposal/2010/23">HE 23/2010</ref>, YmVM 7/2010, EV 80/2010
+                        </p>
+                    </content>
+                </hcontainer>
+                <hcontainer eId="entryIntoForce_20130428" name="entryIntoForce">
+                    <heading>14.6.2013/428:</heading>
+                    <content>
+                        <p>Tämä laki tulee voimaan 1 päivänä tammikuuta 2014.</p>
+                        <p>
+                            <ref href="/akn/fi/doc/government-proposal/2012/185">HE 185/2012</ref>, TaVM 6/2013, EV 48/2013
+                        </p>
+                    </content>
+                </hcontainer>
+                <hcontainer eId="entryIntoForce_20151209" name="entryIntoForce">
+                    <heading>18.9.2015/1209:</heading>
+                    <content>
+                        <p>Tämä laki tulee voimaan 1 päivänä tammikuuta 2016.</p>
+                        <p>
+                            <ref href="/akn/fi/doc/government-proposal/2014/254">HE 254/2014</ref>, TaVM 34/2014, EV 371/2014
+                        </p>
+                    </content>
+                </hcontainer>
+                <hcontainer eId="entryIntoForce_20160625" name="entryIntoForce">
+                    <heading>12.8.2016/625:</heading>
+                    <content>
+                        <p>Tämä laki tulee voimaan 19 päivänä elokuuta 2016.</p>
+                        <p>
+                            <ref href="/akn/fi/doc/government-proposal/2016/70">HE 70/2016</ref>, TaVM 16/2016, EV 85/2016, Euroopan parlamentin ja neuvoston direktiivi 2014/56/EU, (32014L0056); EUVL N:o L 158, 27.5.2014, s. 196, Euroopan parlamentin ja neuvoston asetus (EU) N:o 537/2014, (32014R0537); EUVL N:o L 158, 27.5.2014, s. 77
+                        </p>
+                    </content>
+                </hcontainer>
+                <hcontainer eId="entryIntoForce_20181330" name="entryIntoForce">
+                    <heading>28.12.2018/1330:</heading>
+                    <content>
+                        <p>Tämän lain voimaantulosta säädetään erikseen lailla.</p>
+                        <p>
+                            <ref href="/akn/fi/doc/government-proposal/2018/127">HE 127/2018</ref>, MmVM 18/2018, EV 168/2018
+                        </p>
+                    </content>
+                </hcontainer>
+                <hcontainer eId="entryIntoForce_20190183" name="entryIntoForce">
+                    <heading>8.2.2019/183:</heading>
+                    <content>
+                        <p>Tämä laki tulee voimaan 1 päivänä maaliskuuta 2019.</p>
+                        <p>Lain 6 luvun 43 §:n 5 momentissa säädettyä yhtiön ilmoitusvelvollisuutta ja velvollisuutta merkitä momentissa tarkoitettu tieto osakeluetteloon sovelletaan 1 päivästä heinäkuuta 2019 lähtien. Sama koskee velvollisuutta mainita tieto 7 luvun 27 §:ssä tarkoitetussa isännöitsijäntodistuksessa.</p>
+                        <p>
+                            <ref href="/akn/fi/doc/government-proposal/2018/210">HE 210/2018</ref>, YmVM 17/2018, EV 205/2018
+                        </p>
+                    </content>
+                </hcontainer>
+                <hcontainer eId="entryIntoForce_20190185" name="entryIntoForce">
+                    <heading>8.2.2019/185:</heading>
+                    <content>
+                        <p>Tämä laki tulee voimaan 1 päivänä heinäkuuta 2019.</p>
+                        <p>
+                            <ref href="/akn/fi/doc/government-proposal/2018/238">HE 238/2018</ref>, TaVM 25/2018, EV 206/2018
+                        </p>
+                    </content>
+                </hcontainer>
+                <hcontainer eId="entryIntoForce_20191144" name="entryIntoForce">
+                    <heading>29.11.2019/1144:</heading>
+                    <content>
+                        <p>Tämä laki tulee voimaan 1 päivänä tammikuuta 2020.</p>
+                        <p>
+                            <ref href="/akn/fi/doc/government-proposal/2019/10">HE 10/2019</ref>, HaVM 3/2019, EV 20/2019
+                        </p>
+                    </content>
+                </hcontainer>
+                <hcontainer eId="entryIntoForce_20200789" name="entryIntoForce">
+                    <heading>13.11.2020/789:</heading>
+                    <content>
+                        <p>Tämä laki tulee voimaan 23 päivänä marraskuuta 2020.</p>
+                        <p>Lain 3 luvun 4 a §:ää sovelletaan yhtiöön, jossa on lain voimaantulon jälkeen haetun rakennusluvan perusteella asennettu huoneistokohtaiset vesimittarit. Yhtiöjärjestyksen mainitusta pykälästä poikkeavan määräyksen muutos tämän lain mukaiseksi on ilmoitettava rekisteröitäväksi samalla, kun muu yhtiöjärjestyksen muutos ilmoitetaan rekisteröitäväksi.</p>
+                        <p>
+                            <ref href="/akn/fi/doc/government-proposal/2020/104">HE 104/2020</ref>, TaVM 25/2020, EV 126/2020, Euroopan parlamentin ja neuvoston direktiivi (EU) 2018/2002 (32018L2002); EUVL L 328, 21.12.2018, s. 210–230
+                        </p>
+                    </content>
+                </hcontainer>
+                <hcontainer eId="entryIntoForce_20210016" name="entryIntoForce">
+                    <heading>15.1.2021/16:</heading>
+                    <content>
+                        <p>Tämä laki tulee voimaan 1 päivänä helmikuuta 2021.</p>
+                        <p>
+                            <ref href="/akn/fi/doc/government-proposal/2020/219">HE 219/2020</ref>, MmVM 15/2020, EV 214/2020
+                        </p>
+                    </content>
+                </hcontainer>
+                <hcontainer eId="entryIntoForce_20220661" name="entryIntoForce">
+                    <heading>8.7.2022/661:</heading>
+                    <content>
+                        <p>Tämä laki tulee voimaan 11 päivänä heinäkuuta 2022.</p>
+                        <p>Tätä lakia sovelletaan sellaiseen kokoukseen, johon kutsu on toimitettu tämän lain mukaisena ja joka pidetään tämän lain voimassa ollessa.</p>
+                        <p>
+                            <ref href="/akn/fi/doc/government-proposal/2022/47">HE 47/2022</ref>, TaVM 12/2022, EV 79/2022
+                        </p>
+                    </content>
+                </hcontainer>
+                <hcontainer eId="entryIntoForce_20230152" name="entryIntoForce">
+                    <heading>3.2.2023/152:</heading>
+                    <content>
+                        <p>Tämä laki tulee voimaan 1 päivänä kesäkuuta 2023.</p>
+                        <p>Sen 6 luvun 22 §:n 5 momentti, 34 §:n 5 momentti sekä 23 luvun 5 § tulevat kuitenkin voimaan vasta valtioneuvoston asetuksella säädettävänä ajankohtana. </p>
+                        <p>Tämän lain 6 luvun 22 §:n 5 momenttia, 34 §:n 5 momenttia, 40 §:n 1 momentin 6 a kohtaa ja 43 §:n 5 momenttia, 19 luvun 14 §:n 3 ja 4 momenttia, 20 luvun 14 §:n 2 ja 3 momenttia sekä 23 luvun 5 §:ää sovelletaan osakehuoneistorekisteriin kuuluvaan yhtiöön. </p>
+                        <p>
+                            Jos yhtiö kuuluu osakehuoneistorekisteriin huoneistotietojärjestelmää koskevan lainsäädännön voimaanpanosta annetun lain 
+                            <ref href="/akn/fi/act/statute-consolidated/2018/1329#sec_5">(1329/2018) 5 §:n</ref>
+                             1 momentin tai 6 §:n 2 momentin perusteella, tämän lain 6 luvun 22 §:n 5 momentissa tarkoitetun yhtiöjärjestyksen muuttamista koskevan päätöksen tekemisen edellytyksenä on, että muutoksen kohteena olevien osakeryhmien omistaja on kirjattu osakehuoneistorekisteriin huoneistotietojärjestelmää koskevan lainsäädännön voimaanpanosta annetun lain 7 §:n mukaisesti.
+                        </p>
+                        <p>Lain 28 luvun 1 §:n 2 momentin vastainen yhtiöjärjestyksen määräys on muutettava lain mukaiseksi samalla kun muu yhtiöjärjestyksen muutos ilmoitetaan rekisteröitäväksi.</p>
+                        <p>
+                            <ref href="/akn/fi/doc/government-proposal/2022/168">HE 168/2022</ref>, MmVM 17/2022, EV 167/2022
+                        </p>
+                    </content>
+                </hcontainer>
+                <hcontainer eId="entryIntoForce_20230280" name="entryIntoForce">
+                    <heading>3.3.2023/280:</heading>
+                    <content>
+                        <p>Tämä laki tulee voimaan 8 päivänä maaliskuuta 2023.</p>
+                        <p>
+                            <ref href="/akn/fi/doc/government-proposal/2022/250">HE 250/2022</ref>, YmVM 21/2022, EV 282/2022
+                        </p>
+                    </content>
+                </hcontainer>
+                <hcontainer eId="entryIntoForce_20230577" name="entryIntoForce">
+                    <heading>23.3.2023/577:</heading>
+                    <content>
+                        <p>Tämä laki tulee voimaan 1 päivänä kesäkuuta 2023.</p>
+                        <p>
+                            <ref href="/akn/fi/doc/government-proposal/2022/244">HE 244/2022</ref>, TaVM 46/2022, EV 320/2022
+                        </p>
+                    </content>
+                </hcontainer>
+                <hcontainer eId="entryIntoForce_20230771" name="entryIntoForce">
+                    <heading>21.4.2023/771:</heading>
+                    <content>
+                        <p>Tämä laki tulee voimaan 1 päivänä tammikuuta 2025.</p>
+                        <p>
+                            <ref href="/akn/fi/doc/government-proposal/2022/139">HE 139/2022</ref>, YmVM 27/2022, EV 333/2022
+                        </p>
+                    </content>
+                </hcontainer>
+                <hcontainer eId="entryIntoForce_20240428" name="entryIntoForce">
+                    <heading>28.6.2024/428:</heading>
+                    <content>
+                        <p>Tämä laki tulee voimaan 8 päivänä heinäkuuta 2024.</p>
+                        <p>
+                            <ref href="/akn/fi/doc/government-proposal/2024/48">HE 48/2024</ref>, YmVM 4/2024, EV 43/2024
+                        </p>
+                    </content>
+                </hcontainer>
+                <hcontainer eId="entryIntoForce_20250537" name="entryIntoForce">
+                    <heading>27.6.2025/537:</heading>
+                    <content>
+                        <p>Tämä laki tulee voimaan 1 päivänä tammikuuta 2026.</p>
+                        <p>
+                            <ref href="/akn/fi/doc/government-proposal/2025/13">HE 13/2025</ref>, HaVM 15/2025, EV 74/2025
+                        </p>
+                    </content>
+                </hcontainer>
+                <hcontainer eId="entryIntoForce_20260381" name="entryIntoForce">
+                    <heading>22.5.2026/381:</heading>
+                    <content>
+                        <p>Tämä laki tulee voimaan 1 päivänä syyskuuta 2026.</p>
+                        <p>
+                            <ref href="/akn/fi/doc/government-proposal/2026/9">HE 9/2026</ref>, HaVM 4/2026, EV 46/2026
+                        </p>
+                    </content>
+                </hcontainer>
+                <hcontainer eId="entryIntoForce_20260535" name="entryIntoForce">
+                    <heading>16.6.2026/535:</heading>
+                    <content>
+                        <p>Tämä laki tulee voimaan 1 päivänä lokakuuta 2026.</p>
+                        <p>Vahingonkorvaukseen, joka perustuu ennen tämän lain voimaantuloa tapahtuneeseen tekoon tai laiminlyöntiin, sovelletaan tämän lain voimaan tullessa voimassa olleita säännöksiä.</p>
+                        <p>Tämän lain 28 luvun 1 §:n 2 momentin ja 5 §:n vastaisen yhtiöjärjestyksen määräyksen muutos mainittujen säännösten mukaiseksi on ilmoitettava rekisteröitäväksi samalla, kun muu yhtiöjärjestyksen muutos ilmoitetaan rekisteröitäväksi. Lain 3 luvun 4 a §:ää ei sovelleta yhtiöön, jossa on ennen tämän lain voimaantuloa haetun rakennusluvan perusteella asennettu huoneistokohtaiset vesimittarit.</p>
+                        <p>Ennen tämän lain voimaantuloa siirtyneeseen osakkeeseen sovelletaan lunastuslausekkeen osalta tämän lain voimaan tullessa voimassa olleita säännöksiä.</p>
+                        <p>Jos erityistä tarkastusta koskeva hakemus on rekisteröity Lupa- ja valvontavirastoon ennen tämän lain voimaantuloa, sovelletaan tämän lain voimaan tullessa voimassa olleita erityistä tarkastusta koskevia säännöksiä.</p>
+                        <p>Ennen tämän lain voimaantuloa alkaneeseen konkurssiin sovelletaan tämän lain voimaan tullessa voimassa ollutta 22 luvun 25 §:ää.</p>
+                        <p>Ennen tämän lain voimaantuloa alkaneeseen selvitystilaan sovelletaan tämän lain voimaan tullessa voimassa ollutta 6 luvun 38 §:ää.</p>
+                        <p>
+                            <ref href="/akn/fi/doc/government-proposal/2026/34">HE 34/2026</ref>, YmVM 7/2026, EV 65/2026
+                        </p>
+                    </content>
+                </hcontainer>
+            </hcontainer>
+        </body>
+    </act>
+</akomaNtoso>

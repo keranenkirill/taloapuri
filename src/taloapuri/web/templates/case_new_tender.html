@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+{% block title %}{% if errors %}Virhe: {% endif %}Tarjouspyyntö{% endblock %}
+{% block content %}
+<p><a href="/yhtiot/{{ ctx.company_id }}">← Takaisin</a></p>
+<h1>Laadi tarjouspyyntö</h1>
+<p>Täytä perustiedot. Voit tämän jälkeen luoda tarjouspyynnön tekstin tekoälyn avulla ja muokata sitä.
+  Tarjouspyyntö näkyy hallitukselle uutena tapahtumana.</p>
+
+{% include "_error_summary.html" %}
+
+<form method="post" action="/yhtiot/{{ ctx.company_id }}/asiat" novalidate>
+  <input type="hidden" name="case_type" value="tender_request">
+
+  <div class="field{% if errors.title %} field-error{% endif %}">
+    <label for="title">Mitä tarjouspyyntö koskee?</label>
+    <p class="hint" id="title-ohje">Esimerkiksi ”Porrashuoneiden maalaus”.</p>
+    {% if errors.title %}<p class="error-message" id="title-virhe">{{ errors.title }}</p>{% endif %}
+    <input id="title" name="title" type="text" maxlength="200" required value="{{ values.title or '' }}"
+      aria-describedby="title-ohje{% if errors.title %} title-virhe{% endif %}" {% if errors.title %}aria-invalid="true"{% endif %}>
+  </div>
+
+  <div class="field{% if errors.scope %} field-error{% endif %}">
+    <label for="scope">Työn laajuus</label>
+    <p class="hint" id="scope-ohje">Mitä tehdään, kuinka paljon ja millä materiaaleilla. Esimerkiksi ”A- ja B-portaiden seinät ja katot, n. 600 m²”.</p>
+    {% if errors.scope %}<p class="error-message" id="scope-virhe">{{ errors.scope }}</p>{% endif %}
+    <textarea id="scope" name="scope" rows="6" maxlength="4000" required
+      aria-describedby="scope-ohje{% if errors.scope %} scope-virhe{% endif %}" {% if errors.scope %}aria-invalid="true"{% endif %}>{{ values.scope or '' }}</textarea>
+  </div>
+
+  <div class="field">
+    <label for="location_text">Kohde kiinteistössä (vapaaehtoinen)</label>
+    <input id="location_text" name="location_text" type="text" maxlength="200" value="{{ values.location_text or '' }}">
+  </div>
+
+  <fieldset class="field">
+    <legend>Toivottu aikataulu (vapaaehtoinen)</legend>
+    {% for field, label in [("schedule_start", "Työ voi alkaa aikaisintaan"), ("schedule_end", "Työn on oltava valmis viimeistään"), ("offers_due", "Tarjoukset viimeistään")] %}
+      {% if errors[field] %}<p class="error-message" id="{{ field }}-virhe">{{ errors[field] }}</p>{% endif %}
+      <label for="{{ field }}">{{ label }}</label>
+      <input id="{{ field }}" name="{{ field }}" type="date" value="{{ values[field] or '' }}"
+        {% if errors[field] %}aria-invalid="true" aria-describedby="{{ field }}-virhe"{% endif %}>
+    {% endfor %}
+  </fieldset>
+
+  <div class="field">
+    <label for="requirements">Vaatimukset urakoitsijalle (vapaaehtoinen)</label>
+    <p class="hint" id="requirements-ohje">Esimerkiksi vastuuvakuutus, referenssit tai työn aikainen siisteys. Sopimusehdoista sovitaan erikseen.</p>
+    <textarea id="requirements" name="requirements" rows="3" maxlength="2000" aria-describedby="requirements-ohje">{{ values.requirements or '' }}</textarea>
+  </div>
+
+  <div class="field">
+    <label for="budget_note">Hallituksen sisäinen budjettimuistiinpano (vapaaehtoinen)</label>
+    <p class="hint" id="budget_note-ohje">Ei näy tarjouspyynnössä eikä mene tekoälylle.</p>
+    <input id="budget_note" name="budget_note" type="text" maxlength="500" value="{{ values.budget_note or '' }}" aria-describedby="budget_note-ohje">
+  </div>
+
+  <button type="submit">Tallenna tarjouspyyntö</button>
+  <a class="button-secondary" href="/yhtiot/{{ ctx.company_id }}">Peruuta</a>
+</form>
+{% endblock %}

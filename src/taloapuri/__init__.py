@@ -1,0 +1,1 @@
+"""Taloapuri – taloyhtiöiden digitaalinen avustaja."""

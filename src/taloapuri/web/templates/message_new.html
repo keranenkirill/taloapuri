@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% block title %}{% if error %}Virhe: {% endif %}Uusi viesti{% endblock %}
+{% block content %}
+<p><a href="/yhtiot/{{ ctx.company_id }}/viestit">← Viestit</a></p>
+<h1>Uusi viesti</h1>
+{% if error %}
+  <div class="error-summary" role="alert" tabindex="-1" autofocus>
+    <h2>Viestiä ei lähetetty</h2>
+    <p>{{ error }}</p>
+  </div>
+{% endif %}
+{% if contacts %}
+<form method="post" action="/yhtiot/{{ ctx.company_id }}/viestit" novalidate>
+  <div class="field">
+    <label for="recipient">Vastaanottaja</label>
+    <select id="recipient" name="recipient" required>
+      <option value="">Valitse</option>
+      {% for c in contacts %}
+        <option value="{{ c.user_id }}" {% if values.recipient == c.user_id|string %}selected{% endif %}>{{ c.display_name }}{% if c.roles_label %} ({{ c.roles_label }}){% endif %}</option>
+      {% endfor %}
+    </select>
+  </div>
+  <div class="field">
+    <label for="subject">Aihe</label>
+    <input id="subject" name="subject" type="text" maxlength="200" required value="{{ values.subject or '' }}">
+  </div>
+  <div class="field">
+    <label for="body">Viesti</label>
+    <p class="hint" id="body-ohje">Vastaanottaja näkee nimesi. Viestejä ei lähetetä tekoälylle.</p>
+    <textarea id="body" name="body" rows="6" maxlength="5000" required aria-describedby="body-ohje">{{ values.body or '' }}</textarea>
+  </div>
+  <button type="submit">Lähetä viesti</button>
+</form>
+{% else %}
+  <p>Sinulla ei ole vielä ketään, jolle voit lähettää viestin.</p>
+{% endif %}
+{% endblock %}

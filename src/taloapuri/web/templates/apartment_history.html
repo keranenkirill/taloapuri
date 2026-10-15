@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block title %}Huoneiston historia{% endblock %}
+{% block content %}
+<p><a href="/yhtiot/{{ ctx.company_id }}">← Takaisin etusivulle</a></p>
+<h1>Huoneiston historia</h1>
+<p class="hint">Huoneiston aiemmat korjaukset ja vahingot. Aiempien asukkaiden nimiä ja kuvauksia ei näytetä.</p>
+{% for item in histories %}
+  <section aria-labelledby="historia-{{ item.apartment.id }}">
+    <h2 id="historia-{{ item.apartment.id }}">Huoneisto {{ item.apartment.label }}</h2>
+    {% with history = item.history %}{% include "_apartment_history.html" %}{% endwith %}
+  </section>
+{% else %}
+  <p>Sinulle ei ole merkitty huoneistoa tässä taloyhtiössä. Ota yhteyttä isännöitsijään.</p>
+{% endfor %}
+{% endblock %}

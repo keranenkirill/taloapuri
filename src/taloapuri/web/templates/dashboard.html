@@ -1,0 +1,87 @@
+{% extends "base.html" %}
+{% block title %}{{ ctx.company_name }}{% endblock %}
+{% block content %}
+<h1>Mitä haluat tehdä?</h1>
+
+<ul class="action-cards">
+  <li><a class="card-link" href="/yhtiot/{{ ctx.company_id }}/asiat/uusi?tyyppi=damage">
+    <span class="card-title">Ilmoita vahingosta</span>
+    <span class="card-help">Esimerkiksi vesivuoto tai rikkoutunut ikkuna</span></a></li>
+  <li><a class="card-link" href="/yhtiot/{{ ctx.company_id }}/asiat/uusi?tyyppi=maintenance_responsibility">
+    <span class="card-title">Selvitä kunnossapitovastuu</span>
+    <span class="card-help">Kuka korjaa ja kuka maksaa?</span></a></li>
+  {% if is_board %}
+  <li><a class="card-link" href="/yhtiot/{{ ctx.company_id }}/asiat/uusi?tyyppi=tender_request">
+    <span class="card-title">Laadi tarjouspyyntö</span>
+    <span class="card-help">Esimerkiksi porrashuoneen maalaus</span></a></li>
+  {% endif %}
+  <li><a class="card-link" href="/yhtiot/{{ ctx.company_id }}/ukk">
+    <span class="card-title">Usein kysytyt kysymykset</span>
+    <span class="card-help">Vuodot, remontit ja palvelun käyttö</span></a></li>
+  <li><a class="card-link" href="/yhtiot/{{ ctx.company_id }}/kysy">
+    <span class="card-title">Kysy tekoälyltä (kokeilu)</span>
+    <span class="card-help">Lakiin perustuva vastaus lähteineen</span></a></li>
+  {% if ctx.is_manager %}
+  <li><a class="card-link" href="/yhtiot/{{ ctx.company_id }}/asukkaat">
+    <span class="card-title">Asukkaat ja osakkaat</span>
+    <span class="card-help">Lisää henkilöitä tai päätä käyttöoikeus</span></a></li>
+  <li><a class="card-link" href="/yhtiot/{{ ctx.company_id }}/huoneistot">
+    <span class="card-title">Huoneistot</span>
+    <span class="card-help">Huoneistot ja niiden historia</span></a></li>
+  <li><a class="card-link" href="/yhtiot/{{ ctx.company_id }}/poytakirjat">
+    <span class="card-title">Pöytäkirjat</span>
+    <span class="card-help">Lisää hallituksen kokouksen pöytäkirja</span></a></li>
+  {% endif %}
+</ul>
+<p class="muted">Tulossa myöhemmin: Valmistele kokous ja Etsi asiakirja.</p>
+
+{% if ctx.apartment_labels %}
+  <p><a class="button-secondary" href="/yhtiot/{{ ctx.company_id }}/huoneistohistoria">Huoneiston historia</a></p>
+{% endif %}
+
+<section aria-labelledby="uusimmat">
+  <h2 id="uusimmat">Uusimmat tapahtumat</h2>
+  {% if feed %}
+    <ul class="event-list">
+      {% for item in feed %}
+        <li class="{% if item.pinned %}event-urgent{% elif item.unread %}event-unread{% endif %}">
+          {% if item.badge %}<span class="ai-label{% if item.unread %} unread-label{% endif %}">{{ item.badge }}</span>{% endif %}
+          <strong>{{ item.kind_label }}:</strong>
+          <a href="{{ item.url }}">{% if item.unread %}<strong>{{ item.title }}</strong>{% else %}{{ item.title }}{% endif %}</a>
+          {% if item.detail %}<br>{{ item.detail }}{% endif %}
+          <br><span class="muted">{% if item.actor %}{{ item.actor }} · {% endif %}{{ item.at | fi_datetime }}</span>
+          {% if item.link_label %}<br><a href="{{ item.url }}">{{ item.link_label }}<span class="visually-hidden">: {{ item.title }}</span></a>{% endif %}
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p class="muted">Ei uusia tapahtumia.</p>
+  {% endif %}
+</section>
+
+<h2>Asiat</h2>
+{% if cases %}
+  <table class="case-table">
+    <caption class="visually-hidden">Taloyhtiön asiat, uusin ensin</caption>
+    <thead>
+      <tr><th scope="col">Asia</th><th scope="col">Tyyppi</th><th scope="col">Tila</th></tr>
+    </thead>
+    <tbody>
+      {% for case in cases %}
+        {% set unread = unread_map.get(case.id) %}
+        <tr{% if unread %} class="unread"{% endif %}>
+          <td><a href="/yhtiot/{{ ctx.company_id }}/asiat/{{ case.id }}">{% if unread %}<strong>{{ case.title }}</strong>{% else %}{{ case.title }}{% endif %}</a></td>
+          <td>{{ CASE_TYPE_LABELS_FI.get(case.case_type, case.case_type) }}</td>
+          <td><span class="status status-{{ case.status }}">{{ STATUS_LABELS_FI[case.status] }}</span>
+            {% if unread %}<span class="ai-label unread-label">{{ unread }}</span>{% endif %}</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% else %}
+  <p>Ei vielä asioita. Aloita valitsemalla yllä oleva tehtävä.</p>
+{% endif %}
+
+<p class="muted">Roolisi tässä yhtiössä:
+  {% for role in ctx.roles | sort %}{{ ROLE_LABELS_FI[role] }}{% if not loop.last %}, {% endif %}{% endfor %}</p>
+{% endblock %}

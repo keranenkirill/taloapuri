@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block title %}{% if error %}Virhe: {% endif %}{{ subject }}{% endblock %}
+{% block content %}
+<p><a href="/yhtiot/{{ ctx.company_id }}/viestit">← Viestit</a></p>
+<h1>{{ subject }}</h1>
+{% if sent %}<p class="notice notice-success" role="status">Viesti lähetetty.</p>{% endif %}
+<ol class="timeline">
+  {% for m in messages %}
+    <li {% if loop.last %}id="viimeisin"{% endif %} class="{{ 'timeline-info_response' if m.mine else 'timeline-info_request' }}">
+      <p><strong>{{ "Sinä" if m.mine else m.sender_name }}</strong> <span class="muted">{{ m.created_at | fi_datetime }}</span></p>
+      <p class="prewrap">{{ m.body }}</p>
+    </li>
+  {% endfor %}
+</ol>
+{% if error %}
+  <div class="error-summary" role="alert" tabindex="-1" autofocus><p><a href="#body">{{ error }}</a></p></div>
+{% endif %}
+<form method="post" action="/yhtiot/{{ ctx.company_id }}/viestit/{{ thread_id }}" novalidate>
+  <label for="body">Vastaa</label>
+  <textarea id="body" name="body" rows="4" maxlength="5000" required {% if error %}aria-invalid="true"{% endif %}></textarea>
+  <button type="submit">Lähetä</button>
+</form>
+{% endblock %}

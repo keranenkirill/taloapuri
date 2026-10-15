@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block title %}Tekoälyn lakilähteet{% endblock %}
+{% block content %}
+<p><a href="/yhtiot/{{ ctx.company_id }}">← Takaisin etusivulle</a></p>
+<h1>Tekoälyn lakilähteet</h1>
+<p>Kun kysyt tekoälyltä, se hakee vastauksen näistä laeista ja viittaa niihin. Teksti on Finlexin
+  ajantasaista lainsäädäntöä, joka <strong>ei ole virallinen julkaisu</strong>. Päivityksen tekee
+  palvelun ylläpitäjä.</p>
+<table class="case-table">
+  <caption class="visually-hidden">Käytössä olevat lait</caption>
+  <thead><tr><th scope="col">Laki</th><th scope="col">Ajantasaistettu</th><th scope="col">Tarkistettu</th></tr></thead>
+  <tbody>
+    {% for s in laws %}
+      <tr>
+        <td><strong>{{ s.short_title }}</strong> – {{ s.title }}<br>
+          <a href="{{ s.public_url }}" rel="noopener noreferrer">{{ s.act_number }}/{{ s.act_year }} Finlexissä</a></td>
+        <td>{% if s.consolidated_date %}{{ s.consolidated_date | fi_date }}{% else %}–{% endif %}</td>
+        <td>{% if s.last_checked_at %}{{ s.last_checked_at | fi_datetime }}{% else %}–{% endif %}</td>
+      </tr>
+    {% else %}
+      <tr><td colspan="3">Lakeja ei ole vielä haettu.</td></tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

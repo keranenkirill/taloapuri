@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+{% block title %}{% if errors %}Virhe: {% endif %}Lisää asukas tai osakas{% endblock %}
+{% block content %}
+<p><a href="/yhtiot/{{ ctx.company_id }}/asukkaat">← Takaisin</a></p>
+<h1>Lisää asukas tai osakas</h1>
+<p>Henkilö saa käyttöoikeuden heti. Myöhemmin tähän tulee sähköpostikutsu.</p>
+
+{% include "_error_summary.html" %}
+
+<form method="post" action="/yhtiot/{{ ctx.company_id }}/asukkaat" novalidate>
+  <div class="field{% if errors.display_name %} field-error{% endif %}">
+    <label for="display_name">Nimi</label>
+    {% if errors.display_name %}<p class="error-message" id="display_name-virhe">{{ errors.display_name }}</p>{% endif %}
+    <input id="display_name" name="display_name" type="text" maxlength="200" required autocomplete="off"
+      value="{{ values.display_name or '' }}"
+      {% if errors.display_name %}aria-invalid="true" aria-describedby="display_name-virhe"{% endif %}>
+  </div>
+
+  <div class="field{% if errors.email %} field-error{% endif %}">
+    <label for="email">Sähköposti (vapaaehtoinen)</label>
+    {% if errors.email %}<p class="error-message" id="email-virhe">{{ errors.email }}</p>{% endif %}
+    <input id="email" name="email" type="email" maxlength="320" autocomplete="off"
+      value="{{ values.email or '' }}"
+      {% if errors.email %}aria-invalid="true" aria-describedby="email-virhe"{% endif %}>
+  </div>
+
+  <fieldset class="field{% if errors.role %} field-error{% endif %}" id="role">
+    <legend>Rooli</legend>
+    {% if errors.role %}<p class="error-message">{{ errors.role }}</p>{% endif %}
+    {% for value, label in [("shareholder", "Osakas (omistaa huoneiston osakkeet)"), ("resident", "Asukas (esimerkiksi vuokralainen)")] %}
+      <div class="radio">
+        <input type="radio" id="role-{{ value }}" name="role" value="{{ value }}"
+          {% if values.role == value %}checked{% endif %}>
+        <label for="role-{{ value }}">{{ label }}</label>
+      </div>
+    {% endfor %}
+  </fieldset>
+
+  <div class="field{% if errors.apartment_id %} field-error{% endif %}">
+    <label for="apartment_id">Huoneisto</label>
+    {% if errors.apartment_id %}<p class="error-message" id="apartment_id-virhe">{{ errors.apartment_id }}</p>{% endif %}
+    {% if apartments %}
+      <select id="apartment_id" name="apartment_id"
+        {% if errors.apartment_id %}aria-invalid="true" aria-describedby="apartment_id-virhe"{% endif %}>
+        <option value="">Ei huoneistoa</option>
+        {% for a in apartments %}
+          <option value="{{ a.id }}" {% if values.apartment_id == a.id|string %}selected{% endif %}>{{ a.label }}</option>
+        {% endfor %}
+      </select>
+    {% else %}
+      <p class="hint">Yhtiöllä ei ole vielä huoneistoja. <a href="/yhtiot/{{ ctx.company_id }}/huoneistot">Lisää huoneistot ensin</a>.</p>
+    {% endif %}
+  </div>
+
+  <button type="submit">Lisää henkilö</button>
+  <a class="button-secondary" href="/yhtiot/{{ ctx.company_id }}/asukkaat">Peruuta</a>
+</form>
+{% endblock %}

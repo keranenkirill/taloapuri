@@ -1,0 +1,10 @@
+{% if errors %}
+  <div class="error-summary" role="alert" aria-labelledby="virheet-otsikko" tabindex="-1" autofocus>
+    <h2 id="virheet-otsikko">Korjaa seuraavat kohdat</h2>
+    <ul>
+      {% for field, message in errors.items() %}
+        <li><a href="#{{ field }}">{{ message }}</a></li>
+      {% endfor %}
+    </ul>
+  </div>
+{% endif %}

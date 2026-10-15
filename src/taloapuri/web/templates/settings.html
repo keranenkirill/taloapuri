@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% block title %}{% if email_error %}Virhe: {% endif %}Asetukset{% endblock %}
+{% block content %}
+<p><a href="{{ back }}">← Takaisin</a></p>
+<h1>Asetukset</h1>
+{% if saved %}<p class="notice notice-success" role="status">Tallennettu.</p>{% endif %}
+
+<section aria-labelledby="omat-tiedot">
+  <h2 id="omat-tiedot">Omat tiedot</h2>
+  <p>Nimi: <strong>{{ me.display_name }}</strong></p>
+
+  {% if email_error %}
+    <div class="error-summary" role="alert" tabindex="-1" autofocus>
+      <h3>Korjaa sähköpostiosoite</h3>
+      <p><a href="#email">{{ email_error }}</a></p>
+    </div>
+  {% endif %}
+  <form method="post" action="/asetukset/sahkoposti" novalidate>
+    <input type="hidden" name="takaisin" value="{{ back }}">
+    <div class="field{% if email_error %} field-error{% endif %}">
+      <label for="email">Sähköposti</label>
+      <p class="hint" id="email-ohje">Kirjaudut tällä osoitteella. Muutos tulee voimaan heti.</p>
+      <input id="email" name="email" type="email" autocomplete="email" maxlength="320" required
+        value="{{ email_value }}"
+        aria-describedby="email-ohje" {% if email_error %}aria-invalid="true"{% endif %}>
+    </div>
+    <button type="submit">Tallenna sähköposti</button>
+  </form>
+</section>
+
+<section aria-labelledby="ulkoasu">
+  <h2 id="ulkoasu">Ulkoasu</h2>
+  <form method="post" action="/asetukset/teema">
+    <input type="hidden" name="next" value="/asetukset?takaisin={{ back | urlencode }}">
+    <fieldset>
+      <legend>Värit</legend>
+      {% for value, label in [("auto", "Laitteen asetus"), ("light", "Vaalea"), ("dark", "Tumma")] %}
+        <div class="radio">
+          <input type="radio" id="teema-{{ value }}" name="theme" value="{{ value }}"
+            {% if theme == value %}checked{% endif %}>
+          <label for="teema-{{ value }}">{{ label }}</label>
+        </div>
+      {% endfor %}
+    </fieldset>
+    <button type="submit">Vaihda ulkoasu</button>
+  </form>
+</section>
+
+<section aria-labelledby="kirjaudu-ulos">
+  <h2 id="kirjaudu-ulos">Kirjaudu ulos</h2>
+  <form method="post" action="/dev/kirjaudu-ulos">
+    <button type="submit" class="button-secondary">Kirjaudu ulos</button>
+  </form>
+</section>
+{% endblock %}

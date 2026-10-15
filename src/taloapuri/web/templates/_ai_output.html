@@ -1,0 +1,20 @@
+{# Tekoälyn tuotos lähdeviitteineen. Odottaa muuttujaa `output` (segments, citations, created_by_name, created_at). #}
+<p><span class="ai-label">Tekoälyn tuottama</span>
+  <span class="muted">Pyytänyt {{ output.created_by_name }} {{ output.created_at | fi_datetime }}</span></p>
+<p class="prewrap">{% for seg in output.segments %}{{ seg.text }}{% for n in seg.citations %}<sup><a href="#{{ prefix }}-{{ n }}">[<span class="visually-hidden">lähde </span>{{ n }}]</a></sup>{% endfor %}{% endfor %}</p>
+{% if output.citations %}
+  <details>
+    <summary>Mihin tämä perustuu?</summary>
+    <ol class="sources">
+      {% for c in output.citations %}
+        <li id="{{ prefix }}-{{ c.ord }}" value="{{ c.ord }}">
+          <strong>{{ c.label }}</strong>
+          {% if c.verified %}<span>✓ lainaus tarkistettu lähteestä</span>
+          {% else %}<span>⚠ lainausta ei voitu vahvistaa – tarkista itse</span>{% endif %}
+          <blockquote>{{ c.cited_text }}</blockquote>
+          {% if c.link %}<a href="{{ c.link }}">Avaa lähde (PDF)</a>{% endif %}
+        </li>
+      {% endfor %}
+    </ol>
+  </details>
+{% endif %}

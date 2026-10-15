@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+{% block title %}{% if errors %}Virhe: {% endif %}Pöytäkirjat{% endblock %}
+{% block content %}
+<p><a href="/yhtiot/{{ ctx.company_id }}">← Takaisin etusivulle</a></p>
+<h1>Hallituksen pöytäkirjat</h1>
+{% if notice %}<p class="notice notice-success" role="status">{{ notice }}</p>{% endif %}
+
+<section aria-labelledby="lisaa">
+  <h2 id="lisaa">Lisää pöytäkirja</h2>
+  {% include "_error_summary.html" %}
+  <form method="post" action="/yhtiot/{{ ctx.company_id }}/poytakirjat" enctype="multipart/form-data" novalidate>
+    <div class="field{% if errors.title %} field-error{% endif %}">
+      <label for="title">Otsikko</label>
+      {% if errors.title %}<p class="error-message" id="title-virhe">{{ errors.title }}</p>{% endif %}
+      <input id="title" name="title" type="text" maxlength="200" required value="{{ values.title or '' }}"
+        {% if errors.title %}aria-invalid="true" aria-describedby="title-virhe"{% endif %}>
+    </div>
+    <div class="field{% if errors.meeting_date %} field-error{% endif %}">
+      <label for="meeting_date">Kokouspäivä (vapaaehtoinen)</label>
+      {% if errors.meeting_date %}<p class="error-message" id="meeting_date-virhe">{{ errors.meeting_date }}</p>{% endif %}
+      <input id="meeting_date" name="meeting_date" type="date" value="{{ values.meeting_date or '' }}"
+        {% if errors.meeting_date %}aria-invalid="true" aria-describedby="meeting_date-virhe"{% endif %}>
+    </div>
+    <div class="field{% if errors.description %} field-error{% endif %}">
+      <label for="description">Lyhyt kuvaus asukkaille (vapaaehtoinen)</label>
+      <p class="hint" id="description-ohje">Esimerkiksi ”Päätettiin porrashuoneiden maalauksesta keväällä 2027”.</p>
+      {% if errors.description %}<p class="error-message" id="description-virhe">{{ errors.description }}</p>{% endif %}
+      <textarea id="description" name="description" rows="3" maxlength="1000"
+        aria-describedby="description-ohje{% if errors.description %} description-virhe{% endif %}">{{ values.description or '' }}</textarea>
+    </div>
+    <div class="field{% if errors.file %} field-error{% endif %}">
+      <label for="file">PDF-tiedosto (enintään 10 Mt)</label>
+      {% if errors.file %}<p class="error-message" id="file-virhe">{{ errors.file }}</p>{% endif %}
+      <input id="file" name="file" type="file" accept="application/pdf,.pdf" required
+        {% if errors.file %}aria-invalid="true" aria-describedby="file-virhe"{% endif %}>
+    </div>
+    <div class="checkbox">
+      <input id="visible" name="visible" type="checkbox" value="1" {% if values.visible %}checked{% endif %}>
+      <label for="visible">Näytä osakkaille ja asukkaille etusivulla</label>
+    </div>
+    <p class="hint">Jos et valitse tätä, pöytäkirjan näkevät vain hallitus ja isännöitsijä.</p>
+    <button type="submit">Lisää pöytäkirja</button>
+  </form>
+</section>
+
+<section aria-labelledby="lista">
+  <h2 id="lista">Lisätyt pöytäkirjat</h2>
+  {% if documents %}
+    <table class="case-table">
+      <caption class="visually-hidden">Pöytäkirjat, uusin ensin</caption>
+      <thead><tr><th scope="col">Pöytäkirja</th><th scope="col">Näkyvyys</th><th scope="col">Toiminnot</th></tr></thead>
+      <tbody>
+        {% for d in documents %}
+          <tr>
+            <td><a href="/yhtiot/{{ ctx.company_id }}/asiakirjat/{{ d.id }}/lataa">{{ d.title }}</a>
+              <br><span class="muted">{% if d.meeting_date %}Kokous {{ d.meeting_date | fi_date }} · {% endif %}Lisännyt {{ d.uploaded_by_name }} {{ d.uploaded_at | fi_date_dt }}</span></td>
+            <td>{% if d.visible_to_residents %}Kaikki jäsenet{% else %}Vain hallitus{% endif %}</td>
+            <td>
+              <form method="post" action="/yhtiot/{{ ctx.company_id }}/poytakirjat/{{ d.id }}/nakyvyys">
+                <input type="hidden" name="visible" value="{{ '0' if d.visible_to_residents else '1' }}">
+                <button type="submit" class="button-secondary">{% if d.visible_to_residents %}Piilota asukkailta{% else %}Näytä asukkaille{% endif %}<span class="visually-hidden">: {{ d.title }}</span></button>
+              </form>
+              <form method="post" action="/yhtiot/{{ ctx.company_id }}/poytakirjat/{{ d.id }}/poista">
+                <button type="submit" class="button-secondary">Poista<span class="visually-hidden">: {{ d.title }}</span></button>
+              </form>
+            </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  {% else %}
+    <p>Ei vielä pöytäkirjoja.</p>
+  {% endif %}
+</section>
+{% endblock %}

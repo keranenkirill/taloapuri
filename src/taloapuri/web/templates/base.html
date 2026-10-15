@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="fi" data-theme="{{ theme }}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <title>{% block title %}Taloapuri{% endblock %} – Taloapuri</title>
+  <link rel="stylesheet" href="/static/app.css">
+  <script src="/static/ai-stream.js" defer></script>
+  {% if ctx is defined %}<script src="/static/live-updates.js" defer></script>{% endif %}
+</head>
+<body{% if ctx is defined %} data-status-url="/yhtiot/{{ ctx.company_id }}/tilanne" data-home-url="/yhtiot/{{ ctx.company_id }}#uusimmat"{% endif %}>
+  <a class="skip-link" href="#sisalto">Siirry sisältöön</a>
+  {# Kirjautunut käyttäjä: yhtiösivuilla ctx, muilla sivuilla me. #}
+  {% if ctx is defined %}
+    {% set who_name = ctx.user_name %}{% set who_apts = ctx.apartment_labels %}
+  {% elif me is defined and me %}
+    {% set who_name = me.display_name %}{% set who_apts = () %}
+  {% else %}
+    {% set who_name = "" %}{% set who_apts = () %}
+  {% endif %}
+  <header class="site-header">
+    <div class="wrap header-row">
+      <div class="header-left">
+        <a class="brand" href="/">Taloapuri</a>
+        {% if ctx is defined %}
+          <p class="current-company">Taloyhtiö: <strong>{{ ctx.company_name }}</strong>
+            · <a href="/">Vaihda</a></p>
+        {% endif %}
+      </div>
+      {% if who_name %}
+        <div class="header-right">
+          <p class="current-user" aria-label="Kirjautuneena">
+            <strong>{{ who_name }}</strong>{% if who_apts %} · Huoneisto {{ who_apts | join(", ") }}{% endif %}
+          </p>
+          {% if ctx is defined %}
+            <a class="button-secondary settings-button" href="/yhtiot/{{ ctx.company_id }}/viestit">
+              <span aria-hidden="true">✉</span> Viestit <span class="badge" data-live="messages"{% if not ctx.unread_messages %} hidden{% endif %}><span data-live-count>{{ ctx.unread_messages }}</span><span class="visually-hidden"> lukematonta</span></span></a>
+          {% endif %}
+          {% if me is defined and me and me.is_platform_admin %}
+            <a class="button-secondary settings-button" href="/yllapito/lait">Ylläpito</a>
+          {% endif %}
+          <a class="button-secondary settings-button" href="/asetukset?takaisin={{ current_path | urlencode }}">
+            <span aria-hidden="true">⚙</span> Asetukset</a>
+        </div>
+      {% endif %}
+    </div>
+  </header>
+  {% if ctx is defined %}
+    <div class="live-toast wrap" role="status" aria-live="polite" hidden>
+      <span data-live-message></span> <a data-live-link href="/yhtiot/{{ ctx.company_id }}#uusimmat">Näytä</a>
+    </div>
+  {% endif %}
+  <main id="sisalto" class="wrap" tabindex="-1">
+    {% block content %}{% endblock %}
+  </main>
+  <footer class="site-footer">
+    <div class="wrap">
+      <p>Taloapuri auttaa valmistelussa. Se ei tee päätöksiä puolestasi eikä korvaa juristin arviota.</p>
+      <p><a href="/ensiohjeet/vesivahinko">Vesivahingon ensiohjeet</a></p>
+    </div>
+  </footer>
+</body>
+</html>

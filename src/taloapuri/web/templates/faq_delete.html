@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block title %}Poista kysymys{% endblock %}
+{% block content %}
+<h1>Poistetaanko tämä kysymys?</h1>
+<blockquote>
+  <p><strong>{{ entry.question }}</strong></p>
+  <p class="prewrap">{{ entry.answer }}</p>
+</blockquote>
+<p>Kysymys poistuu kaikilta yhtiön jäseniltä. Poistoa ei voi perua.</p>
+<form method="post" action="/yhtiot/{{ ctx.company_id }}/ukk/{{ entry.id }}/poista">
+  <button type="submit">Kyllä, poista</button>
+  <a class="button-secondary" href="/yhtiot/{{ ctx.company_id }}/ukk/muokkaa">Peruuta</a>
+</form>
+{% endblock %}

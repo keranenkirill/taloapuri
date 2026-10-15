@@ -1,0 +1,115 @@
+{% extends "base.html" %}
+{% block title %}{% if error %}Virhe: {% endif %}Lakilähteet – ylläpito{% endblock %}
+{% block content %}
+<p><a href="/">← Etusivu</a></p>
+<h1>Lakilähteet</h1>
+<p>Nämä lait ovat tekoälyn lähteinä <strong>kaikissa taloyhtiöissä</strong>. Teksti haetaan Finlexin
+  ajantasaisesta lainsäädännöstä. Päivitys ottaa uuden version käyttöön; vanha versio säilyy
+  historiana, koska aiemmat tekoälyvastaukset viittaavat siihen.</p>
+
+{% if notice %}<p class="notice notice-success" role="status">{{ notice }}</p>{% endif %}
+{% if error %}
+  <div class="error-summary" role="alert" tabindex="-1" autofocus><p>{{ error }}</p></div>
+{% endif %}
+
+<form method="post" action="/yllapito/lait/tarkista-kaikki">
+  <button type="submit">Tarkista kaikkien lakien päivitykset</button>
+</form>
+
+{% if outcomes is not none %}
+  <section aria-labelledby="tulokset" class="notice">
+    <h2 id="tulokset">Tarkistuksen tulos</h2>
+    <ul>
+      {% for o in outcomes %}
+        <li><strong>{{ o.source.short_title }}</strong>:
+          {% if o.error %}{{ o.error }}
+          {% elif o.result.changed %}päivitetty versioon {{ o.result.version_label }}
+            {% if o.result.summary %}({{ o.result.summary.changed }} muuttunut, {{ o.result.summary.added }} lisätty, {{ o.result.summary.removed }} poistettu){% endif %}
+          {% else %}ei muutoksia{% endif %}</li>
+      {% endfor %}
+    </ul>
+  </section>
+{% endif %}
+
+<table class="case-table">
+  <caption class="visually-hidden">Lakilähteet</caption>
+  <thead>
+    <tr><th scope="col">Laki</th><th scope="col">Versio</th><th scope="col">Tarkistettu</th><th scope="col">Tila</th><th scope="col">Toiminnot</th></tr>
+  </thead>
+  <tbody>
+    {% for s in laws %}
+      <tr id="laki-{{ s.act_year }}-{{ s.act_number }}">
+        <td><strong>{{ s.short_title }}</strong> – {{ s.title }}<br>
+          <a href="{{ s.public_url }}" rel="noopener noreferrer">{{ s.act_number }}/{{ s.act_year }} Finlexissä</a>
+          {% if s.change_summary %}
+            <details>
+              <summary>Viimeisin muutos</summary>
+              <p>{{ s.change_summary.changed }} muuttunut, {{ s.change_summary.added }} lisätty, {{ s.change_summary.removed }} poistettu.</p>
+              {% if s.change_summary["items"] %}
+                <ul>{% for item in s.change_summary["items"] %}<li>{{ item.kind }}: {{ item.label }}</li>{% endfor %}</ul>
+              {% endif %}
+            </details>
+          {% endif %}
+        </td>
+        <td>{{ s.version_label or "–" }}<br>
+          <span class="muted">{% if s.consolidated_date %}ajantasaistettu {{ s.consolidated_date | fi_date }}<br>{% endif %}{{ s.section_count }} momenttia · {{ s.version_count }} versiota</span></td>
+        <td>{% if s.last_checked_at %}{{ s.last_checked_at | fi_datetime }}{% else %}–{% endif %}</td>
+        <td>{% if s.active %}Käytössä{% else %}Poissa käytöstä{% endif %}{% if s.is_core %}<br><span class="muted">Ydinlaki</span>{% endif %}</td>
+        <td>
+          {% if s.active %}
+            <form method="post" action="/yllapito/lait/{{ s.act_year }}/{{ s.act_number }}/tarkista">
+              <button type="submit" class="button-secondary">Tarkista päivitykset<span class="visually-hidden">: {{ s.short_title }}</span></button>
+            </form>
+            {% if not s.is_core %}
+              <a href="/yllapito/lait/{{ s.act_year }}/{{ s.act_number }}/poista-kaytosta">Poista käytöstä<span class="visually-hidden">: {{ s.short_title }}</span></a>
+            {% endif %}
+          {% else %}
+            <form method="post" action="/yllapito/lait/{{ s.act_year }}/{{ s.act_number }}/kaytossa">
+              <input type="hidden" name="active" value="1">
+              <button type="submit" class="button-secondary">Ota käyttöön<span class="visually-hidden">: {{ s.short_title }}</span></button>
+            </form>
+          {% endif %}
+        </td>
+      </tr>
+    {% else %}
+      <tr><td colspan="5">Ei lakeja. Aja <code>python scripts/ingest_finlex.py</code>.</td></tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+<section aria-labelledby="lisaa">
+  <h2 id="lisaa">Lisää laki</h2>
+  {% if catalog %}
+    <p>Ehdotuksia:</p>
+    <ul class="actions">
+      {% for c in catalog %}
+        <li>
+          <form method="post" action="/yllapito/lait/esikatsele">
+            <input type="hidden" name="year" value="{{ c.year }}">
+            <input type="hidden" name="number" value="{{ c.number }}">
+            <input type="hidden" name="short_title" value="{{ c.short }}">
+            <button type="submit" class="button-secondary">Lisää: {{ c.label }} ({{ c.number }}/{{ c.year }})</button>
+          </form>
+        </li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+  <form method="post" action="/yllapito/lait/esikatsele" novalidate>
+    <p class="hint" id="lisaa-ohje">Anna säädöskokoelman vuosi ja numero, esimerkiksi 2002 ja 453 (laki 453/2002). Näet esikatselun ennen lisäämistä.</p>
+    <div class="field">
+      <label for="year">Vuosi</label>
+      <input id="year" name="year" type="text" inputmode="numeric" maxlength="4" required value="{{ values.year or '' }}" aria-describedby="lisaa-ohje">
+    </div>
+    <div class="field">
+      <label for="number">Numero</label>
+      <input id="number" name="number" type="text" inputmode="numeric" maxlength="5" required value="{{ values.number or '' }}">
+    </div>
+    <div class="field">
+      <label for="short_title">Lyhenne (vapaaehtoinen)</label>
+      <p class="hint" id="short-ohje">Näkyy lähdeviitteissä, esimerkiksi ”KTJL”. Muuten käytetään numeroa.</p>
+      <input id="short_title" name="short_title" type="text" maxlength="32" value="{{ values.short_title or '' }}" aria-describedby="short-ohje">
+    </div>
+    <button type="submit">Esikatsele</button>
+  </form>
+</section>
+{% endblock %}

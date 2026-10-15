@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block title %}Viestit{% endblock %}
+{% block content %}
+<p><a href="/yhtiot/{{ ctx.company_id }}">← Takaisin etusivulle</a></p>
+<h1>Viestit</h1>
+<p><a class="button" href="/yhtiot/{{ ctx.company_id }}/viestit/uusi">Kirjoita uusi viesti</a></p>
+{% if threads %}
+  <ul class="event-list">
+    {% for t in threads %}
+      <li {% if t.unread %}class="event-urgent"{% endif %}>
+        {% if t.unread %}<strong>Uusi:</strong> {% endif %}
+        <a href="/yhtiot/{{ ctx.company_id }}/viestit/{{ t.id }}">{{ t.subject }}</a>
+        <br><span class="muted">{% if t.other_names %}{{ t.other_names }} · {% endif %}viimeisin {{ t.last_sender_name }} {{ t.last_message_at | fi_datetime }}</span>
+      </li>
+    {% endfor %}
+  </ul>
+{% else %}
+  <p>Ei vielä viestejä.</p>
+{% endif %}
+{% endblock %}
