@@ -213,6 +213,18 @@ The original requirements (in Finnish) are in `Claude_Code_Plan_Promt.md`.
 - AI requests send only the question plus legal texts, minutes and offers that the user is allowed to see. Photos, messages and personal data aren't sent. See `docs/adr/0005-ai-chat-varhain.md` and `docs/adr/0006-kuvat-viestit-tarjoukset.md`.
 - The consolidated Finlex texts aren't the official legal publication, and the AI's answers aren't legal advice.
 
+## How this project was made
+
+Taloapuri is my first "vibe-coded" project. I wrote the idea and requirements in plain language (`Claude_Code_Plan_Prompt.md`), and [Claude Code](https://claude.com/claude-code) (Anthropic's AI coding assistant) wrote the code. I never wrote it by hand.
+
+How we worked:
+- **Plan first.** For every round of changes, Claude proposed a plan, I approved or corrected it, and only then was it implemented.
+- **Small steps.** The app grew feature by feature: forms, then minutes, messages, AI chat, live updates, and law management. I tried each step in the browser and asked for changes.
+- **Tests as a safety net.** Claude wrote automated tests alongside the code (192 at the time of writing), including checks that one housing company can never see another's data. The AI is never called in tests.
+- **Decisions are written down** in `docs/adr/` and `CLAUDE.md`, so the next session (or contributor) knows why things are the way they are.
+
+What that means for you as a reader: the code has been tested and linted, but it has **not had a human security or legal review**. The FAQ and first-aid wording are drafts awaiting expert review, and the login is development-only. Treat it as a working prototype, not a finished product.
+
 ## License
 
 No license has been chosen yet, so all rights are reserved by the author. Please open an issue if you'd like to use the code.
